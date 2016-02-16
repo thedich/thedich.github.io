@@ -1,0 +1,193 @@
+
+body {
+	font-family:Verdana;
+	margin: 0;
+	overflow: hidden;
+	background:#fff;
+	overflow: auto;
+}
+
+@font-face {
+  font-family: LocalFont;
+  src: url(../fonts/Rundg.eot.eot);
+}
+
+@font-face {
+  font-family: LocalFont;
+  src: url(../fonts/Rundg.otf) format("opentype");
+}
+
+#imghol img
+{
+	display: block;
+    margin: 0 auto !important;
+}
+
+#footer
+{
+	height:100px;
+}
+
+#slideholder
+{
+	width:400px;
+	display:block;
+	margin: 0 auto;
+	padding-bottom:30px;
+}
+
+#head
+{
+	width:100%;
+	margin:0 auto;
+	text-align: center;
+	padding-bottom:30px;
+	padding-top:10px;
+}
+
+#task
+{
+	width:600px;
+	margin:0 auto;
+	background:#fdffbf;
+	padding: 10px 10px 10px 10px;
+}
+
+#tasktext
+{
+	//padding: 10px 10px 10px 10px;
+}
+
+#done
+{
+	width:100%;
+	margin:0 auto;
+	text-align: center;
+	font-family: LocalFont,Arial, sans-serif;
+	font-size:30px;
+	color:#a6a3a3;
+	position:relative;
+	top:-20px;
+	
+}
+
+#titel
+{
+	font-family: LocalFont,Arial, sans-serif;
+	font-size:100px;
+}
+
+#body
+{
+	width:900px;
+	margin:0 auto;
+}
+
+#outer1 {
+		width: 100%; 
+		margin-right: -100px; 
+		float: left;
+		}
+		
+#outer2 {
+	margin-right: 50px;
+	}
+
+#outer3 {
+	width: 100%; 
+	margin-left: -100px; 
+	float: right;
+	}
+
+#main {
+	margin-left: 100px; 
+	background: #FFCCFF;
+	}
+	
+#main2 {
+	margin-left: 100px; 
+	background: #FFAC66;
+	}	
+	
+#left {
+	width: 100px; 
+	float: left; 
+	//background: #00CCFF;
+	}
+	
+#right {
+	width: 20px; 
+	float: right;
+	position:relative;
+	left:-30px;	
+	//background: #FFCC66;
+	}
+
+#biga
+{
+	font-size:150px;
+	color:#000FFF;
+	float:left;
+	display: inline-block;
+	line-height: 70%;
+	float:left;
+	//position:absolute;
+	//top:-35px;
+}
+
+#taskholder
+{
+	width:700px;
+	border: 2px #a6a3a3;
+	border-style: dashed;
+	padding:20px 20px 34px 20px;
+	margin: 0 auto;
+}
+
+#holder
+{
+	width: 100%;
+	display: inline-block;
+	position:relative;
+}
+
+#container
+{
+	//display: inline-block;
+}
+
+#textholder 
+{
+	float:left;
+	margin-left:70px;
+
+}
+
+#textholder ul 
+{
+	list-style:none;
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+
+}
+
+
+#fakeholder
+{
+	margin-left:70px;
+	float:left;
+	//display:none;
+}
+
+#bigend
+{
+	display: inline-block;
+	font-size:140px;
+	line-height: 70%;
+	color:#000FFF;
+	position:absolute;
+	top:-5px;
+	
+}
+
+
