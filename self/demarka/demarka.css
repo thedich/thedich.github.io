@@ -1,0 +1,49 @@
+
+html {
+		height: 100%;
+		overflow: hidden;
+	}
+
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+#contentifnot { 
+	width: 600px;
+	font-family: Arial; 
+	padding: 5px;
+	font-size: 14px;
+	font-color:#221e1f;
+	line-height: 18px;
+	padding-right: 20px;
+	margin: 40px; 
+	float: left;
+   }
+
+#contentifnot a:link {
+	color:#000;
+	font-weight: bold;
+	}
+
+#contentifnot a:visited {
+	color:#000;
+	font-weight: bold;
+	}
+
+#contentifnot hr {
+	color:#b9b9b9;
+	background-color:#b9b9b9;
+	height: 1px;
+	border-width:0px; 
+}
+
+#contentifnot span {
+
+	font-size: 14px;
+	font-color:#221e1f;
+	line-height: 18px;
+}	font-color:#221e1f;
+	line-height: 18px;
+}
