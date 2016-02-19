@@ -3,7 +3,6 @@
 <title>Demarka - декоративные покрытия из Италии</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="demarka.css">
-<link rel="stylesheet" type="text/css" href="http://www.demarka.ru/demarka.css">
 <script type="text/javascript" src="swfobject.js"></script>
 </head>
 
@@ -13,13 +12,14 @@
 	</div>
 
 	<script type="text/javascript">
+		var randa = ["demarka.swf", "demarka_second.swf"];
+		var inx = Math.random() > .5 ? 1: 0;		
 		// <![CDATA[
 
-		var so = new SWFObject("demarka.swf", "5green", "100%", "100%", "9");
+		var so = new SWFObject(randa[inx], "demarka", "100%", "100%", "10");
 		so.addParam("allowFullScreen","true");
 		so.write("flashcontent");
 		
-
 		// ]]>
 	</script>
 	<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
