@@ -1,0 +1,144 @@
+﻿<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+	 * { margin:0;padding:0 }
+     html { height: 100%;}
+     body, html {
+		height: 100%;
+		margin: 0px;
+        padding: 0px;
+		overflow:hidden; 
+		background-color: #fff;
+		}
+		
+	#titel
+	{
+		position:absolute;
+		font-size:41px;
+		color:#fff;
+		font-family: LocalFont;
+		top:30px;
+		left:20px;
+	}	
+		
+	@font-face {
+		font-family: LocalFont;
+		src: url(fonts/Rundg.eot.eot);
+	}
+
+	@font-face {
+		font-family: LocalFont;
+		src: url(fonts/Rundg.otf) format("opentype");
+	}		
+	
+     #container {
+		height: 100%;
+		width: 100%;
+      	background-color: black;
+		}
+		
+	 .draw {}
+
+			
+    </style>
+	<script type="text/javascript" src="js/d3.v3.min.js"></script>
+  </head>
+  <body>
+	<div id="titel">The Ski</div>
+	<div class="draw"></div>
+	
+    <script type="text/javascript">
+		var width = 480,
+		height = 600;
+
+		var n = 1,
+			m = 50,
+			degrees = 180 / Math.PI;
+
+		var spermatozoa = d3.range(n).map(function() {
+		  var x = Math.random() * width,
+			  y = Math.random() * height;
+		  return {
+			vx: Math.random() * 2 - 1,
+			vy: Math.random() * 2 - 1,
+			path: d3.range(m).map(function() { return [x, y]; }),
+			count: 0
+		  };
+		});
+
+		var svg = d3.select("body").append("svg")
+			.attr("width", width)
+			.attr("height", height);
+
+		var g = svg.selectAll("g")
+			.data(spermatozoa)
+			.enter().append("g");
+
+		var head = g.append("ellipse")
+			.attr("rx", 6.5)
+			.attr("ry", 4);
+
+		g.append("path")
+			.datum(function(d) { return d.path.slice(0, 2); })
+			.attr("class", "mid");
+
+		g.append("path")
+			.datum(function(d) { return d.path; })
+			.attr("class", "tail");
+
+		var tail = g.selectAll("path");
+
+		d3.timer(function() {
+		  for (var i = -1; ++i < n;) {
+			var spermatozoon = spermatozoa[i],
+				path = spermatozoon.path,
+				dx = spermatozoon.vx,
+				dy = spermatozoon.vy,
+				x = path[0][0] += dx,
+				y = path[0][1] += dy,
+				speed = Math.sqrt(dx * dx + dy * dy),
+				count = speed * 10,
+				k1 = -5 - speed / 3;
+
+			// Bounce off the walls.
+			if (x < 0 || x > width) spermatozoon.vx *= -1;
+			if (y < 0 || y > height) spermatozoon.vy *= -1;
+
+			// Swim!
+			for (var j = 0; ++j < m;) {
+			  var vx = x - path[j][0],
+				  vy = y - path[j][1],
+				  k2 = Math.sin(((spermatozoon.count += count) + j * 3) / 2000) / speed;
+			  path[j][0] = (x += dx / speed * k1) - dy * k2;
+			  path[j][1] = (y += dy / speed * k1) + dx * k2;
+			  speed = Math.sqrt((dx = vx) * dx + (dy = vy) * dy);
+			}
+		  }
+
+		  head.attr("transform", headTransform);
+		  tail.attr("d", tailPath);
+		});
+
+		function headTransform(d) {
+		  return "translate(" + d.path[0] + ")rotate(" + Math.atan2(d.vy, d.vx) * degrees + ")";
+		}
+
+		function tailPath(d) {
+		  return "M" + d.join("L");
+		}
+		
+    </script>
+	
+	<script type="text/javascript">
+		<!-- ( Analytics ) -->
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-74497033-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+  </body>
+</html>
