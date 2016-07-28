@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Samsung</title>
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="paper.js"></script>
+	<script type="text/javascript" src="utils.js"></script>
+	<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+	
+	<script type="text/paperscript" canvas="canvas">
+		
+		var path;
+		var paths = [];
+		var modifyPaths = [];
+		var originPaths = [];
+		var beforePaths = [];
+		var modifylay, originlay, beforelay;
+		var origincolor = "#bfbfbf";
+		var result = [];
+		
+		var doanim = false;
+		var testmode = false;
+		
+		var pathscount = 0;
+		var pointscount = 0;
+		var from = 0;
+		var to = 0;
+		
+		var vData = {
+			SG: 
+			{
+				original:"M723.1 163.5Q746.2 169.3 753.75 174.75 781.15 189.45 786.85 213.2 789.7 225.05 787.05 234 776.6 267.15 731.75 300.9 717.75 311.4 702 320.75L689.05 328Q690.65 325.05 691 322.7L691.05 290 663.25 290 663.5 305.25 669.05 305.5 669.05 318Q667.05 324.25 662.85 322.75 661.55 322.3 660.15 321.1L659.05 320 659.05 268Q661.75 264.4 665.15 265.85 666.9 266.55 668.05 268L669.05 278 690.05 278 690.05 268Q690.05 253.8 677.3 248.95 673.3 247.45 668.5 247.1L664.5 247Q648.55 247 640.9 256.25 638.55 259.15 637.3 262.6 636.65 264.35 636.5 265.5L636.05 318Q636.05 334.1 647.55 340.65 653.3 343.95 659.05 344 590.3 381.5 467.8 409.5 429.5 418.25 390.45 425L359.05 430Q313.75 439.05 215.5 438.2 184.75 437.9 152.45 436.7L126.3 435.5Q43.35 425.35 19.9 390.65 12.55 379.8 12.1 367.8 11.9 364.1 12.45 360.65L13.05 358Q15.55 329.7 65.45 292.05 90.35 273.2 114.8 260L115.05 281.75Q114.45 290.35 126.7 299.55 132.8 304.15 139.05 307 145.3 309.2 146.3 313.8 146.8 316.15 146.05 318 142.95 323.95 139.45 321.55 138.35 320.8 137.35 319.35L136.55 318 136.55 308 112.8 308 113.3 322Q113.95 334.95 128.45 339.8 135.7 342.2 142.8 342 163.9 341.85 169.1 325.4 170.7 320.3 170.55 314.1L170.05 309Q170.05 296.5 159.55 288.4 156.3 285.85 152.35 284.05 L149.05 282.75Q139.85 279.45 137.5 273.4 136.8 271.5 136.85 269.55L137.05 268Q140.8 263.3 144.3 265.2 146.05 266.15 147.05 268L147.05 278 169.05 278 169.05 261Q167.5 252.7 156.1 248.05 152.55 246.55 148.45 245.65L145.05 245Q192.85 221.9 258.45 201.65 291.25 191.5 314.5 186 387.95 164.6 500.85 155.15 557.3 150.45 599.05 150 676.85 151.9 723.1 163.5",
+				modify:"M723.1 163.5Q746.2 169.3 753.75 174.75 781.15 189.45 786.85 213.2 789.7 225.05 787.05 234 776.6 267.15 731.75 300.9 717.75 311.4 702 320.75L689.05 328Q690.65 325.05 691 322.7L691.05 290 663.25 290 663.5 305.25 669.05 305.5 669.05 318Q667.05 324.25 662.85 322.75 661.55 322.3 660.15 321.1L659.05 320 659.05 268Q661.75 264.4 665.15 265.85 666.9 266.55 668.05 268L669.05 278 690.05 278 690.05 268Q690.05 253.8 677.3 248.95 673.3 247.45 668.5 247.1L664.5 247Q648.55 247 640.9 256.25 638.55 259.15 637.3 262.6 636.65 264.35 636.5 265.5L636.05 318Q636.05 334.1 647.55 340.65 653.3 343.95 659.05 344 590.3 381.5 467.8 409.5 429.5 418.25 390.45 425L359.05 430Q313.75 439.05 215.5 438.2 184.75 437.9 152.45 436.7L126.3 435.5Q43.35 425.35 19.9 390.65 12.55 379.8 12.1 367.8 11.9 364.1 12.45 360.65L13.05 358Q15.55 329.7 65.45 292.05 90.35 273.2 114.8 260L115.05 281.75Q114.45 290.35 126.7 299.55 132.8 304.15 139.05 307 145.3 309.2 146.3 313.8 146.8 316.15 146.05 318 142.95 323.95 139.45 321.55 138.35 320.8 137.35 319.35L136.55 318 136.55 308 112.8 308 113.3 322Q113.95 334.95 128.45 339.8 135.7 342.2 142.8 342 163.9 341.85 169.1 325.4 170.7 320.3 170.55 314.1L170.05 309Q170.05 296.5 159.55 288.4 156.3 285.85 152.35 284.05 L149.05 282.75Q139.85 279.45 137.5 273.4 136.8 271.5 136.85 269.55L137.05 268Q140.8 263.3 144.3 265.2 146.05 266.15 147.05 268L147.05 278 169.05 278 169.05 261Q167.5 252.7 156.1 248.05 152.55 246.55 148.45 245.65L145.05 245Q192.85 221.9 258.45 201.65 291.25 191.5 314.5 186 387.95 164.6 500.85 155.15 557.3 150.45 599.05 150 676.85 151.9 723.1 163.5",
+				color:"#10218B"	
+			   //console.log("RAW_DATA:" +  raw.data)
+			},
+			A: 
+			{
+				original:"M237.75 249.45 252.25 339.35 229.05 339.45 219.05 271.5 211.25 339.35 189.05 339.1 202.35 249.5 237.75 249.45",
+				modify:"M237.75 249.45 254.5 350 229.05 339.45 219.05 271.5 211.25 339.35 187.5 350 202.35 249.5 237.75 249.45",
+				color:"#FFFFFF"
+				
+			   //console.log("RAW_DATA:" +  raw.data)
+
+			},
+			
+			M: 
+			{
+				original:"M339.05 339.2 336.65 278 326.65 339.2 305.4 339.45 293.8 278 292.5 339.2 272 339.35 273 249.2 309.2 249.35 315.35 295.85 322.75 249.2 357.4 249.6 359.05 339.1 339.05 339.2",
+				modify:"M339.05 339.2 336.65 278 326.65 339.2 305.4 339.45 293.8 278 292.5 339.2 272 339.35 260 250 309.2 249.35 315.35 295.85 322.75 249.2 357.4 249.6 359.05 339.1 339.05 339.2",
+				color:"#FFFFFF"
+				
+			   //console.log("RAW_DATA:" +  raw.data)
+
+			},
+			S: 
+			{
+				original:"M418.9 247.15Q422.35 247.95 425.35 249.3 434.9 253.55 436 261.35L435.9 278 414.9 278 414.9 268Q414.75 267.2 414.1 266.4 412.8 264.8 410.25 264.8 409 264.55 407.65 264.85 404.95 265.4 404.4 268L404.15 269.45Q404.05 271.25 404.65 273.05 406.65 278.8 415.25 282.35L418.65 284Q422.7 286.15 426.15 288.7 437.1 296.85 437.4 305.7L437.4 324.35Q436.3 328.2 433.15 332.3 426.9 340.45 416.75 341.7L399.05 341.7Q395.1 341.15 390.9 338.6 382.45 333.5 381.15 323.7L381.15 310.1 404 309.95 404.4 319.2 405.2 321.1Q406.5 322.95 409.05 322.9L411.55 322.35Q414.1 321.2 414.25 318 414.95 316.2 414.05 313.75 412.3 308.9 404.4 305.6 399.15 303.45 393.85 299.35 383.2 291.15 383 281.35L383.15 262.35Q383.4 261.4 383.95 260 385.15 257.15 386.95 254.75 392.6 247.05 402.15 246.6L416 246.6 418.9 247.15",
+				modify:"M418.9 247.15Q422.35 247.95 425.35 249.3 434.9 253.55 436 261.35L435.9 278 414.9 278 414.9 268Q414.75 267.2 414.1 266.4 412.8 264.8 410.25 264.8 409 264.55 407.65 264.85 404.95 265.4 404.4 268L404.15 269.45Q404.05 271.25 404.65 273.05 406.65 278.8 415.25 282.35L418.65 284Q422.7 286.15 426.15 288.7 437.1 296.85 437.4 305.7L437.4 324.35Q436.3 328.2 433.15 332.3 426.9 340.45 416.75 341.7L399.05 341.7Q395.1 341.15 390.9 338.6 382.45 333.5 381.15 323.7L381.15 310.1 404 309.95 404.4 319.2 405.2 321.1Q406.5 322.95 409.05 322.9L411.55 322.35Q414.1 321.2 414.25 318 414.95 316.2 414.05 313.75 412.3 308.9 404.4 305.6 399.15 303.45 393.85 299.35 383.2 291.15 383 281.35L383.15 262.35Q383.4 261.4 383.95 260 385.15 257.15 386.95 254.75 392.6 247.05 402.15 246.6L416 246.6 418.9 247.15",
+				color:"#FFFFFF"
+				
+			   //console.log("RAW_DATA:" +  raw.data)
+
+			},
+			U: 
+			{
+				original:"M483.4 249.6 484.15 318 484.65 320.65Q485.8 323.25 489.05 322.85L491.4 322.7Q493.8 321.8 494.15 318L494.4 249.7 517.75 249.85 517.65 320.2Q517.8 324.85 515.2 329.85 509.9 339.9 495.9 341.95L484.25 342.2Q478.9 342.1 473.25 339.2 462.05 333.5 460.9 319.85L460.9 249.6 483.4 249.6",
+				modify:"M482.75 243.75 484.15 318 484.65 320.65Q485.8 323.25 489.05 322.85L491.4 322.7Q493.8 321.8 494.15 318L494.75 244 517 244.75 517.65 320.2Q517.8 324.85 515.2 329.85 509.9 339.9 495.9 341.95L484.25 342.2Q478.9 342.1 473.25 339.2 462.05 333.5 460.9 319.85L460 242.75 482.75 243.75",
+				color:"#FFFFFF"
+				
+			   //console.log("RAW_DATA:" +  raw.data)
+
+			},
+			N: 
+			{
+				original:"M610.9 249.35 611.15 340.1 586.5 339.95 564.65 288 565.15 340.1 543.65 339.7 543.9 249.45 569.05 249.7 589.05 299.35 589.05 249.6 610.9 249.35",
+				modify:"M610.9 249.35 611.15 340.1 586.5 339.95 564.65 288 565.5 346.5 543.25 346.5 543.9 249.45 569.05 249.7 589.05 299.35 589.05 249.6 610.9 249.35",
+				color:"#FFFFFF"
+				
+			   //console.log("RAW_DATA:" +  raw.data)
+
+			}
+		}
+		
+		function makePath(dataPath, color, pushto)
+		{
+			var path = new Path(); 
+			path.setPathData(dataPath);
+			path.strokeCap = 'butt';
+			path.strokeJoin = 'round';
+			path.fillColor = color;
+			path.closePath();
+			
+			if(!Boolean(pushto)) paths.push(path);
+			beforePaths.push(path);			
+			return path;
+		}
+		
+		function init()
+		{
+			// ui default
+			$('#result').text(' ');
+			result = []; pathscount = 0; pointscount = 0;
+			doanim = false;  from = 0; to = 0;
+			
+			paths = [];
+			project.clear();
+			
+			if(originlay) originlay.remove();
+			if(modifylay) modifylay.remove();
+			if(beforelay) beforelay.remove();
+	
+			originlay = new Layer();
+			originlay = project.activeLayer;
+			originlay.opacity = 0;
+			originlay.locked = true;
+			makeInLayer('original', origincolor);
+			
+			paths.push('stop'); // flag 
+			modifylay = new Layer();
+			project.activeLayer = modifylay;
+			makeInLayer('modify');
+			
+			paths.push('before'); // to calc persents
+			beforelay = new Layer();
+			project.activeLayer = beforelay;
+			beforelay.opacity = 0;
+			beforelay.locked = true;
+			makeInLayer('modify');
+			
+		}
+		
+		init();
+		
+		function makeInLayer(type, color)
+		{
+			for ( var i in vData)
+			{   
+				var thiscolor = vData[i].color;
+				if(Boolean(color))thiscolor = color;
+
+				var path = makePath(vData[i][type],thiscolor);
+				if(Boolean(vData[i].compare))
+				{
+					var pathcom = makePath(vData[i].compare, type)
+					var p = new CompoundPath(pathcom, path);
+					p.fillColor = thiscolor;
+				}
+			}			
+		}
+				
+		function onFrame(event) {
+			alignLayers();
+			if(doanim) calculateDefPoints();
+			
+			if(Boolean(to) && from < to)
+				$('#result').text("" + from + "%"), from++;
+			
+		}
+		
+		function alignLayers()
+		{
+			modifylay.position = view.center;
+			beforelay.position = view.center; 
+			originlay.position.x  = view.center.x; // bug fix
+			originlay.position.y  = view.center.y;
+		}
+		
+		function calculateDefPoints()
+		{
+		
+			console.log('__Animate__');
+			var path1 = modifyPaths[pathscount];
+			var path2 = originPaths[pathscount];
+			
+			//console.log('Origin: ' + path2.getPathData());
+			//console.log('Modify: ' + path1.getPathData());
+			//console.log('all: ' + paths[0].getPathData());
+			
+			if(testmode)
+			{
+				var path = new Path.Circle(path2.segments[pointscount].point, 10);
+				path.fillColor = 'yellow';
+			
+				var path = new Path.Circle(path1.segments[pointscount].point, 5);
+				path.fillColor = 'green';
+			}	
+			
+			if(Boolean(path1.segments[pointscount]))
+			{
+				var point1x = path1.segments[pointscount].point.x;
+				var point1y = path1.segments[pointscount].point.y;
+				var point2x = path2.segments[pointscount].point.x;
+				var point2y = path2.segments[pointscount].point.y;
+				
+				var inc = .5;
+				if(point1x < point2x)
+					path1.segments[pointscount].point.x+=inc;	
+				if(point1x > point2x)
+					path1.segments[pointscount].point.x-=inc;
+					
+				if(point1y < point2y)
+					path1.segments[pointscount].point.y+=inc;	
+				if(point1y > point2y)
+					path1.segments[pointscount].point.y-=inc;	
+					
+				if( Math.abs(point1x - point2x)<1 && 
+				    Math.abs(point1y - point2y)<1)	
+					pointscount++;
+				
+				//console.log('point1x' + point1x);
+				//console.log('point2x' + point2x);
+				
+			} else console.log('next'); //pathscount++;	
+
+			
+			if(!Boolean(path1.segments[pointscount]))
+			{
+				pathscount++;
+				pointscount = 0;
+				console.log('next:' + pathscount);
+			}
+			
+			if(!Boolean(modifyPaths[pathscount]))
+				doanim = false;
+		}
+		
+		function getArrayPath()
+		{
+			var ii, jj;
+			for ( var i in paths)
+			{
+			    if(paths[i] == 'stop') ii = Number(i);
+				if(paths[i] == 'before') jj = Number(i);
+			}
+			
+			console.log('ii: ' + ii);
+			console.log('jj: ' + jj);
+			
+			originPaths = paths.slice(0, ii);
+			modifyPaths = paths.slice(ii+1, jj);
+			beforePaths = paths.slice(jj+1, paths.length);
+				
+			console.log('modifyPaths_len:' + modifyPaths.length);
+			console.log('originPaths_len:' + originPaths.length);
+			console.log('beforePaths_len:' + beforePaths.length);
+			console.log('Paths_len:' + paths.length);
+
+			result = getMiddle();	
+		}
+		
+		function getResult()
+		{
+			var res = 100 - Math.round(result[1]*100/result[0]);
+			console.log('result_original:' + result[0]);
+			console.log('result_aftermove:' + result[1]);
+			console.log('result:' + res);
+			
+			if(res <0) res = 0;
+			console.log('result:' + res);
+			
+			return res;
+		}
+		
+		function getMiddle()
+		{
+			var distance = [];
+			var distancebefore = [];
+			
+			for( var d in modifyPaths)
+			{
+				var path1 = modifyPaths[d];
+				var path2 = originPaths[d];
+				var pathbefore = beforePaths[d];
+				
+				
+				for( var j in path1.segments)
+				{
+					var seg1 = path1.segments[j].point;
+					var seg2 = path2.segments[j].point;
+					var segbef = pathbefore.segments[j].point;
+					
+					var dis = seg2.getDistance(seg1);
+					var disbefore = seg2.getDistance(segbef);
+					
+					if(dis > 2) distance.push(dis);
+					if(disbefore > 2) distancebefore.push(disbefore);
+					//console.log('Distance:' + dis);
+					
+				}
+			}
+			
+			var all = 0;
+			for( var jj in distance)
+				all += distance[jj];
+				
+			var allbefore = 0;
+			for( var jj in distancebefore)
+				allbefore += distancebefore[jj];
+				
+			console.log('Distance_all:' + distancebefore.length);
+			console.log('Distance_allbefore:' + allbefore);			
+
+			return [allbefore/distancebefore.length, all/distance.length];
+		}
+		
+		
+		var hitOptions = {
+			segments: true,
+			stroke: true,
+			fill: true,
+			tolerance: 12
+		};
+		
+	
+		var mousepoint = new Point();
+		function onMouseMove(event) {
+		
+			var hitResult = project.hitTest(event.point, hitOptions);
+
+			for( var i in project.layers)
+				project.layers[i].selected = false;
+			if (hitResult && hitResult.item)
+				hitResult.item.selected = true;
+				//hitResult.item.fullySelected = true;	
+					
+			mousepoint = event.point;	
+			document.getElementById("canvas").style.cursor = 'default';	
+			if(hitResult)
+			{
+				path = hitResult.item;
+				document.getElementById("canvas").style.cursor = 'pointer';	
+			} 
+
+			console.log('mousemove');
+		}
+		
+		var segment, path;
+		var movePath = false;
+		function onMouseDrag(event) 
+		{
+		
+			var hitResult = project.hitTest(event.point, hitOptions);
+				if (hitResult) 
+				{
+					path = hitResult.item;
+					if (hitResult.type == 'segment') {
+						segment = hitResult.segment;
+						segment.point = event.point;
+						
+						console.log('Handle!' + segment['handleIn']);
+						movePath = true;
+					} else movePath = false;
+				}
+
+			var delta = event.delta.clone();
+			if (type == 'handleOut' || type == 'handleIn') 
+			{ 	if(type == 'handleOut') {delta = -delta;
+				currentSegment.handleOut -= delta;}
+				currentSegment.handleIn += delta;	
+			}
+				
+			console.log('Type:' + type);
+			console.log('drag!');
+				
+		}
+		
+		var types = ['point','handleIn', 'handleOut'];
+		var handleDistance = 5;
+		function findHandle(point) {
+			for (var i = 0, l = path.segments.length; i < l; i++) {
+				for (var j = 0; j < 3; j++) {
+					var type = types[j];
+					var segment = path.segments[i];
+					var segmentPoint = type == 'point'
+							? segment.point
+							: segment.point + segment[type];
+					var distance = (point - segmentPoint).length;
+					if (distance < handleDistance) {
+						console.log('Type:' + type);
+						return {
+							type: type,
+							segment: segment
+						};
+					}
+				}
+			}
+			return null;
+		}
+		
+		var currentSegment, type;
+		function onMouseDown(event) {
+			var result = findHandle(event.point);
+			if (result) {
+				currentSegment = result.segment;
+				type = result.type;
+			}				
+		}
+
+			
+		var scalefactor = 1;
+		function dPlus() {
+				
+			scalefactor = 1;
+			scalefactor +=.05;
+			for (var i = 0; i < paths.length; i++) {
+				var path = paths[i];
+				if(Boolean(path.scale))
+				path.scale(Math.round(scalefactor*100)/100, mousepoint);
+				
+				console.log('Plus_Scale: ' + Math.round(scalefactor*100)/100)
+				}
+				handleDistance +=scalefactor;
+		}
+			
+		function dMinus() { 
+		
+			console.log('DMinus')
+			scalefactor = 1;
+			scalefactor -=.05;
+				
+			for (var i = 0; i < paths.length; i++) {
+				var path = paths[i];
+				if(Boolean(path.scale)) 
+				path.scale(scalefactor, view.center);
+			}
+				
+		}
+		
+		onWheel.init('canvas', dPlus, dMinus);
+		
+		$('#refresh').click(function(){
+			console.log('OnClick');
+			init();
+		})
+		
+		$('#ready').click(function(){
+			
+			originlay.opacity = 1; getArrayPath();
+			to = getResult(); to += 0.1;
+
+			if(doanim) init(); else 
+			doanim = true;	
+		})
+		
+		
+		
+		var arrStyle = ['#refresh', '#ready'];
+		for( var i in arrStyle) $(arrStyle[i]).hover(function(){
+			$(this).css('cursor','pointer');
+		},  $(this).css('cursor','default'))
+		
+	</script>
+</head>
+<body>
+	<div id="result">42%</div>
+	<div id="mouseinfo"><img src="ui/wheel_p.png" alt=""/></div>
+	<div id="ready"><img src="ui/ready_p.png" alt=""/></div>
+	<div id="refresh"><img src="ui/refresh_p.png" alt=""/></div>
+	<canvas id="canvas" resize></canvas>
+</body>
+</html>

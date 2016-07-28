@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Graphic version="2.0" viewHeight="600" viewWidth="800" ATE:version="1.0.0" flm:version="1.0.0" d:using="" xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:flm="http://ns.adobe.com/flame/2008">
+  <Library/>
+  <Group d:type="layer" d:userLabel="Selected Items">
+    <Path data="M339.05 339.2 336.65 278 326.65 339.2 305.4 339.45 293.8 278 292.5 339.2 272 339.35 260 250 309.2 249.35 315.35 295.85 322.75 249.2 357.4 249.6 359.05 339.1 339.05 339.2">
+      <fill>
+        <SolidColor color="#FFFFFF"/>
+      </fill>
+    </Path>
+  </Group>
+  <Private/>
+</Graphic>

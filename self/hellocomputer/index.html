@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Hello Computer</title>
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="paper.js"></script>
+	<script type="text/javascript" src="utils.js"></script>
+	<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+	
+	<script type="text/paperscript" canvas="canvas">
+		
+		var path;
+		var paths, modifyPaths, originPaths, beforePaths = [];
+		var modifylay, originlay, beforelay;
+		var origincolor = "#bfbfbf";
+		var result = [];
+		
+		var doanim = false;
+		var testmode = false;
+		var tracelog = true;
+		var alingbool = true;
+		var pathscount, pointscount, from, to = 0;
+		
+		var vData = {
+			H: 
+			{
+				original:"M82.8 187.95Q92.8 176.1 106.95 176.1 114.25 176.1 119.85 178.85 125.95 181.6 128.65 185.7 131.55 189.95 132.6 194.8 133.65 199.5 133.65 210.45L133.65 256.6 112.85 256.6 112.85 215.15Q112.85 203 111.65 199.35 110.6 196 107.4 194.05 104.2 192.05 99.95 192.05 94.95 192.05 90.7 194.65 86.75 197.05 84.6 202.25 82.8 207.25 82.8 217.25L82.8 256.6 62 256.6 62 148 82.8 148 82.8 187.95",
+				modify:"M82.8 187.95Q92.8 176.1 106.95 176.1 114.25 176.1 119.85 178.85 125.95 181.6 128.65 185.7 131.55 189.95 132.6 194.8 133.65 199.5 133.65 210.45L133.65 256.6 112.85 256.6 112.85 215.15Q112.85 203 111.65 199.35 110.6 196 107.4 194.05 104.2 192.05 99.95 192.05 94.95 192.05 90.7 194.65 86.75 197.05 84.6 202.25 82.8 207.25 82.8 217.25L82.8 256.6 62 256.6 62 148 82.8 148 82.8 187.95",
+				color:"#FFF"	
+			},
+			E: 
+			{
+				original:"M171.05 176.1Q188.5 176.1 198.85 187.8 209 199.65 208.55 223.35L156.3 223.35Q156.6 232.6 161.3 237.8 166.2 242.95 173.3 242.95 178.35 242.95 181.5 240.2 184.85 237.45 186.7 231.55L207.8 231.55Q203.55 246.45 194.75 252.5 186.25 258.3 173.15 258.3 152.35 258.3 142.8 245.05 134.9 234.45 134.9 217.9 134.9 198.45 145.2 187.2 155.55 176.1 171.05 176.1",
+				compare:"M183.2 196.75Q187.6 201.65 187.75 210.6L156.6 210.6Q156.6 202.25 161 197.05 165.55 192.05 172.25 192.05 178.5 192.05 183.2 196.75",
+				modify:"M171.05 176.1Q188.5 176.1 198.85 187.8 209 199.65 208.55 223.35L156.3 223.35Q156.6 232.6 161.3 237.8 166.2 242.95 173.3 242.95 178.35 242.95 181.5 240.2 184.85 237.45 186.7 231.55L207.8 231.55Q203.55 246.45 194.75 252.5 186.25 258.3 173.15 258.3 152.35 258.3 142.8 245.05 134.9 234.45 134.9 217.9 134.9 198.45 145.2 187.2 155.55 176.1 171.05 176.1",
+				color:"#FFF"
+			},
+			L1: 
+			{
+				original:"M213.85 148 234.7 148 234.7 256.6 213.85 256.6 213.85 148",
+				modify:"M213.85 70 234.7 70 234.7 256.6 213.85 256.6 213.85 70",
+				color:"#FFF"
+
+			},
+			L2: 
+			{
+				original:"M244.4 148 265.2 148 265.2 256.6 244.4 256.6 244.4 148",
+				modify:"M244.4 148 265.2 148 265.2 256.6 244.4 256.6 244.4 148",
+				color:"#FFF"
+			},
+			O: 
+			{
+				original:"M351.35 217.1Q351.35 234.75 339.8 246.75 328.25 258.3 310.75 258.3 300.3 258.3 290.1 253.55 280.55 249 275.1 239.3 270.05 229.75 270.05 216.2 270.05 205.75 275.1 196.15 280.4 186.3 289.65 181.3 298.95 176.1 310.6 176.1 328.25 176.1 339.95 187.8 351.35 199.5 351.35 217.1",
+				compare:"M329.9 217.1Q329.9 228.8 324.3 235.2 319 241.4 310.6 241.4 302.25 241.4 296.95 235.2 291.35 229.1 291.35 217.25 291.35 205.45 296.95 199.35 302.4 193.1 310.6 193.1 318.8 193.1 324.3 199.35 329.9 205.75 329.9 217.1",
+				modify:"M351.35 217.1Q351.35 234.75 339.8 246.75 328.25 258.3 310.75 258.3 300.3 258.3 290.1 253.55 280.55 249 275.1 239.3 270.05 229.75 270.05 216.2 270.05 205.75 275.1 196.15 280.4 186.3 289.65 181.3 298.95 176.1 310.6 176.1 328.25 176.1 339.95 187.8 351.35 199.5 351.35 217.1",
+				color:"#FFF"
+
+			},
+			C: 
+			{
+				original:"M110.15 294.6Q109.2 288.35 105.4 285.3 101.8 282.15 95.85 282.15 88.1 282.15 83.55 287.6 78.85 292.75 78.85 305.5 78.85 319.65 83.55 325.25 88.25 331.05 96.15 331.05 102.4 331.05 105.9 327.7 109.85 324.2 111.2 316.15L130.95 316.15Q128.5 333.45 119.55 340.9 110.6 347.9 95.25 347.9 77.95 347.9 67.75 337.1 57.45 326.35 57.45 307.05 57.45 287.45 67.75 276.65 78.1 265.7 95.55 265.7 110 265.7 118.5 271.95 127 278.2 131.7 294.6L110.15 294.6",
+				//compare:"",
+				modify:"M110.15 294.6Q109.2 288.35 105.4 285.3 101.8 282.15 95.85 282.15 88.1 282.15 83.55 287.6 78.85 292.75 78.85 305.5 78.85 319.65 83.55 325.25 88.25 331.05 96.15 331.05 102.4 331.05 105.9 327.7 109.85 324.2 111.2 316.15L130.95 316.15Q128.5 333.45 119.55 340.9 110.6 347.9 95.25 347.9 77.95 347.9 67.75 337.1 57.45 326.35 57.45 307.05 57.45 287.45 67.75 276.65 78.1 265.7 95.55 265.7 110 265.7 118.5 271.95 127 278.2 131.7 294.6L110.15 294.6",
+				color:"#FFF"
+			},
+			O2: 
+			{
+				original:"M131.7 294.6Q132.9 290.05 135.2 285.75 140.5 275.9 149.75 270.9 159.05 265.7 170.75 265.7 188.35 265.7 200.05 277.4 211.45 289.1 211.45 306.75 211.45 324.35 199.9 336.35 188.35 347.9 170.9 347.9 160.4 347.9 150.25 343.2 140.65 338.65 135.2 328.9 130.2 319.35 130.2 305.8 130.2 300.05 131.7 294.6",
+				compare:"M151.45 306.9Q151.45 295.05 157.05 288.95 162.55 282.75 170.75 282.75 178.95 282.75 184.4 288.95 190 295.35 190 306.75 190 318.45 184.4 324.8 179.1 331.05 170.75 331.05 162.4 331.05 157.05 324.8 151.45 318.75 151.45 306.9",
+				modify:"M131.7 294.6Q132.9 290.05 135.2 285.75 140.5 275.9 149.75 270.9 159.05 265.7 170.75 265.7 188.35 265.7 200.05 277.4 211.45 289.1 211.45 306.75 211.45 324.35 199.9 336.35 188.35 347.9 170.9 347.9 160.4 347.9 150.25 343.2 140.65 338.65 135.2 328.9 130.2 319.35 130.2 305.8 130.2 300.05 131.7 294.6",
+				color:"#FFF"
+			},
+			M: 
+			{
+				original:"M329.15 279.7Q331.3 284.85 331.3 295.95L331.3 346.2 310.45 346.2 310.45 301.25Q310.45 289.4 308.2 286.25 305.45 281.65 299.4 281.65 294.85 281.65 291.2 284.4 287.1 287.3 285.55 292.15 283.9 297 283.9 308.4L283.9 346.2 263.1 346.2 263.1 303.1 Q263.1 291.7 261.85 288.35 260.65 284.85 258.35 283.35 255.95 281.65 252.15 281.65 247.45 281.65 243.5 284.25 239.7 287 237.85 291.85 236.2 296.85 236.2 308.1L236.2 346.2 215.4 346.2 215.4 267.55 234.55 267.55 234.55 278.35Q245 265.7 259.15 265.7 266.75 265.7 272.35 268.9 277.8 271.8 281.45 278.35 286.45 271.95 292.55 268.9 298.75 265.7 305.45 265.7 313.95 265.7 320.05 269.2 326.25 272.85 329.15 279.7",
+				//compare:"",
+				modify:"M329.15 279.7Q331.3 284.85 331.3 295.95L331.3 346.2 310.45 346.2 310.45 301.25Q310.45 289.4 308.2 286.25 305.45 281.65 299.4 281.65 294.85 281.65 291.2 284.4 287.1 287.3 285.55 292.15 283.9 297 283.9 308.4L283.9 346.2 263.1 346.2 263.1 303.1 Q263.1 291.7 261.85 288.35 260.65 284.85 258.35 283.35 255.95 281.65 252.15 281.65 247.45 281.65 243.5 284.25 239.7 287 237.85 291.85 236.2 296.85 236.2 308.1L236.2 346.2 215.4 346.2 215.4 267.55 234.55 267.55 234.55 278.35Q245 265.7 259.15 265.7 266.75 265.7 272.35 268.9 277.8 271.8 281.45 278.35 286.45 271.95 292.55 268.9 298.75 265.7 305.45 265.7 313.95 265.7 320.05 269.2 326.25 272.85 329.15 279.7",
+				color:"#FFF"
+			},
+			P: 
+			{
+				original:"M337.95 267.55 357.4 267.55 357.4 279.1Q361.35 273 367.75 269.5 373.95 265.7 382 265.7 395.7 265.7 405.25 276.5 414.8 287.3 414.8 306.45 414.8 326.2 405.25 337.1 395.55 347.9 381.85 347.9 375 347.9 370 345.45 364.7 342.9 358.9 336.65L358.9 376.15 337.95 376.15 337.95 267.55",
+				compare:"M388.7 288.2Q393.7 294.45 393.7 306.6 393.7 319.65 388.85 325.7 384.15 331.5 376.7 331.5 369.25 331.5 363.95 325.25 358.6 318.75 358.6 305.5 358.6 294 363.65 288.05 368.65 282.3 376.4 282.3 383.7 282.3 388.7 288.2",
+				modify:"M337,420L359,421L358.9,336.65c3.86667,4.16667 7.56667,7.1 11.1,8.8c3.33333,1.63333 7.28333,2.45 11.85,2.45c9.13333,0 16.93333,-3.6 23.4,-10.8c6.36667,-7.26667 9.55,-17.48333 9.55,-30.65c0,-12.76667 -3.18333,-22.75 -9.55,-29.95c-6.36667,-7.2 -14.11667,-10.8 -23.25,-10.8c-5.36667,0 -10.11667,1.26667 -14.25,3.8c-4.26667,2.33333 -7.71667,5.53333 -10.35,9.6L357.4,267.55L337.95,267.55z",
+				color:"#FFF"
+			},
+			UT: 
+			{
+				original:"M420.15 267.55 441.1 267.55 441.1 303.7Q441.1 320.7 442.15 324.05 443.35 328 446.4 329.95 449.45 332.25 454 332.25 459.3 332.25 463.55 329.2 467.8 326.5 469.5 322.05 471 317.2 471 300.8L471 267.55 500.8 267.55 500.8 243.1 521.6 243.1 521.6 267.55 535.85 267.55 535.85 284.1 521.6 284.1 522.05 327.1Q522.5 328.75 523.85 329.8 525.55 330.75 527.35 330.75 530.4 330.75 538.3 330.45L538.3 347Q529.8 347.9 521.15 347.9 515.65 347.9 510.95 346.2 506.4 344.25 504.3 341.35 502.3 338.35 501.4 333.15 500.8 329.95 500.8 318.45L500.8 284.1 491.8 284.1 491.8 346.2 472.55 346.2 472.55 334.55Q468.45 340.6 461.15 344.4 453.85 347.9 446.4 347.9 438.35 347.9 432.15 344.55 425.9 341.2 423 334.85 420.15 328.15 420.15 317.35L420.15 267.55",
+				//compare:"",
+				modify:"M420.15 267.55 441.1 267.55 441.1 303.7Q441.1 320.7 442.15 324.05 443.35 328 446.4 329.95 449.45 332.25 454 332.25 459.3 332.25 463.55 329.2 467.8 326.5 469.5 322.05 471 317.2 471 300.8L471 267.55 500.8 267.55 500 230 521.6 243.1 521.6 267.55 535.85 267.55 535.85 284.1 521.6 284.1 522.05 327.1Q522.5 328.75 523.85 329.8 525.55 330.75 527.35 330.75 530.4 330.75 538.3 330.45L538.3 347Q529.8 347.9 521.15 347.9 515.65 347.9 510.95 346.2 506.4 344.25 504.3 341.35 502.3 338.35 501.4 333.15 500.8 329.95 500.8 318.45L500.8 284.1 491.8 284.1 491.8 346.2 472.55 346.2 472.55 334.55Q468.45 340.6 461.15 344.4 453.85 347.9 446.4 347.9 438.35 347.9 432.15 344.55 425.9 341.2 423 334.85 420.15 328.15 420.15 317.35L420.15 267.55",
+				color:"#FFF"
+			},
+			E2: 
+			{
+				original:"M569.3 265.7Q586.75 265.7 597.1 277.4 607.25 289.25 606.8 312.95L554.55 312.95Q554.85 322.25 559.55 327.4 564.4 332.55 571.55 332.55 576.6 332.55 579.75 329.8 583.1 327.1 584.95 321.15L605.6 321.15Q601.8 336.05 593 342.1 584.45 347.9 571.4 347.9 550.6 347.9 541.05 334.7 539.5 332.7 538.3 330.45 533.15 320.85 533.15 307.5 533.15 288.05 543.45 276.8 553.8 265.7 569.3 265.7",
+				compare:"M581.45 286.4Q585.85 291.25 586 300.2L554.85 300.2Q554.85 291.85 559.25 286.7 563.8 281.65 570.5 281.65 576.75 281.65 581.45 286.4",
+				modify:"M569.3 265.7Q586.75 265.7 597.1 277.4 607.25 289.25 606.8 312.95L554.55 312.95Q554.85 322.25 559.55 327.4 564.4 332.55 571.55 332.55 576.6 332.55 579.75 329.8 583.1 327.1 584.95 321.15L605.6 321.15Q601.8 336.05 593 342.1 584.45 347.9 571.4 347.9 550.6 347.9 541.05 334.7 539.5 332.7 538.3 330.45 533.15 320.85 533.15 307.5 533.15 288.05 543.45 276.8 553.8 265.7 569.3 265.7",
+				color:"#FFF"
+			},
+			R: 
+			{
+				original:"M648.7 265.7Q655.7 265.7 662.4 269.65L656 287.9Q650.7 284.4 646.15 284.4 642.05 284.4 638.85 286.85 635.8 289.25 634 295.65 632.3 301.25 632.3 321.9L632.3 346.2 611.35 346.2 611.35 267.55 630.8 267.55 630.8 278.8Q635.95 270.75 639.75 268.3 643.7 265.7 648.7 265.7",
+				//compare:"",
+				modify:"M648.7 265.7Q655.7 265.7 662.4 269.65L656 287.9Q650.7 284.4 646.15 284.4 642.05 284.4 638.85 286.85 635.8 289.25 634 295.65 632.3 301.25 632.3 321.9L632.3 346.2 611.35 346.2 611.35 267.55 630.8 267.55 630.8 278.8Q635.95 270.75 639.75 268.3 643.7 265.7 648.7 265.7",
+				color:"#FFF"
+			},
+			LINE: 
+			{
+				original:"M151.6 410.95 74.15 410.95 74.15 402.55 151.6 402.55 151.6 410.95",
+				//compare:"",
+				modify:"M151.6 410.95 74.15 410.95 74.15 402.55 151.6 402.55 151.6 410.95",
+				color:"#FFF"
+			}
+		}
+		
+		function makePath(dataPath, color, pushto)
+		{
+			var path = new Path(); 
+			path.setPathData(dataPath);
+			path.strokeCap = 'butt';
+			path.strokeJoin = 'round';
+			path.fillColor = color;
+			path.closePath();
+			
+			if(!Boolean(pushto)) paths.push(path);
+			beforePaths.push(path);			
+			return path;
+		}
+		
+		function init()
+		{
+			// ui default
+			$('#result').text(' ');
+			result = []; pathscount = pointscount = from = to = 0;
+			doanim = false;  
+			
+			paths = [];
+			project.clear();
+			
+			if(originlay) originlay.remove();
+			if(modifylay) modifylay.remove();
+			if(beforelay) beforelay.remove();
+	
+			originlay = new Layer();
+			originlay = project.activeLayer;
+			originlay.opacity = 0;
+			originlay.locked = true;
+			makeInLayer('original', origincolor);
+			
+			paths.push('stop'); // flag 
+			modifylay = new Layer();
+			project.activeLayer = modifylay;
+			makeInLayer('modify');
+			
+			paths.push('before'); // to calc persents
+			beforelay = new Layer();
+			project.activeLayer = beforelay;
+			beforelay.opacity = 0;
+			beforelay.locked = true;
+			makeInLayer('modify');
+			
+		}
+		
+		init();
+		
+		function makeInLayer(type, color)
+		{
+			for ( var i in vData)
+			{   
+				var thiscolor = vData[i].color;
+				if(Boolean(color))thiscolor = color;
+
+				var path = makePath(vData[i][type],thiscolor);
+				if(Boolean(vData[i].compare))
+				{
+					var pathcom = makePath(vData[i].compare, type)
+					var p = new CompoundPath(pathcom, path);
+					p.fillColor = thiscolor;
+				}
+			}			
+		}
+				
+		function onFrame(event) {
+			if(alingbool) alignLayers();
+			if(doanim) calculateDefPoints();
+			
+			if(Boolean(to) && from < to)
+				$('#result').text("" + from + "%"), from++;
+			
+		}
+		
+		function alignLayers()
+		{
+			modifylay.position = view.center;
+			beforelay.position = view.center; 
+			originlay.position.x  = view.center.x; // bug fix
+			originlay.position.y  = view.center.y +34;
+		}
+		
+		function calculateDefPoints()
+		{
+		
+			console.log('__Animate__');
+			var path1 = modifyPaths[pathscount];
+			var path2 = originPaths[pathscount];
+			
+			//console.log('Origin: ' + path2.getPathData());
+			//console.log('Modify: ' + path1.getPathData());
+			//console.log('all: ' + paths[0].getPathData());
+			
+			if(testmode)
+			{
+				var path = new Path.Circle(path2.segments[pointscount].point, 10);
+				path.fillColor = 'yellow';
+			
+				var path = new Path.Circle(path1.segments[pointscount].point, 5);
+				path.fillColor = 'green';
+			}	
+			
+			if(Boolean(path1.segments[pointscount]))
+			{
+				var point1x = path1.segments[pointscount].point.x;
+				var point1y = path1.segments[pointscount].point.y;
+				var point2x = path2.segments[pointscount].point.x;
+				var point2y = path2.segments[pointscount].point.y;
+				
+				var inc = .5;
+				if(point1x < point2x)
+					path1.segments[pointscount].point.x+=inc;	
+				if(point1x > point2x)
+					path1.segments[pointscount].point.x-=inc;
+					
+				if(point1y < point2y)
+					path1.segments[pointscount].point.y+=inc;	
+				if(point1y > point2y)
+					path1.segments[pointscount].point.y-=inc;	
+					
+				if( Math.abs(point1x - point2x)<1 && 
+				    Math.abs(point1y - point2y)<1)	
+					pointscount++;
+				
+				//console.log('point1x' + point1x);
+				//console.log('point2x' + point2x);
+				
+			} else console.log('next'); //pathscount++;	
+
+			
+			if(!Boolean(path1.segments[pointscount]))
+			{
+				pathscount++;
+				pointscount = 0;
+				console.log('next:' + pathscount);
+			}
+			
+			if(!Boolean(modifyPaths[pathscount]))
+				doanim = false;
+		}
+		
+		function getArrayPath()
+		{
+			var ii, jj;
+			for ( var i in paths)
+			{
+			    if(paths[i] == 'stop') ii = Number(i);
+				if(paths[i] == 'before') jj = Number(i);
+			}
+			
+			console.log('ii: ' + ii);
+			console.log('jj: ' + jj);
+			
+			originPaths = paths.slice(0, ii);
+			modifyPaths = paths.slice(ii+1, jj);
+			beforePaths = paths.slice(jj+1, paths.length);
+				
+			console.log('modifyPaths_len:' + modifyPaths.length);
+			console.log('originPaths_len:' + originPaths.length);
+			console.log('beforePaths_len:' + beforePaths.length);
+			console.log('Paths_len:' + paths.length);
+
+			result = getMiddle();	
+		}
+		
+		function getResult()
+		{
+			var res = 100 - Math.round(result[1]*100/result[0]);
+			console.log('result_original:' + result[0]);
+			console.log('result_aftermove:' + result[1]);
+			console.log('result:' + res);
+			
+			if(res <0) res = 0;
+			console.log('result:' + res);
+			
+			return res;
+		}
+		
+		function getMiddle()
+		{
+			var distance = [];
+			var distancebefore = [];
+			
+			for( var d in modifyPaths)
+			{
+				var path1 = modifyPaths[d];
+				var path2 = originPaths[d];
+				var pathbefore = beforePaths[d];
+				
+				
+				for( var j in path1.segments)
+				{
+					var seg1 = path1.segments[j].point;
+					var seg2 = path2.segments[j].point;
+					var segbef = pathbefore.segments[j].point;
+					
+					var dis = seg2.getDistance(seg1);
+					var disbefore = seg2.getDistance(segbef);
+					
+					if(dis > 2) distance.push(dis);
+					if(disbefore > 2) distancebefore.push(disbefore);
+					//console.log('Distance:' + dis);
+					
+				}
+			}
+			
+			var all = 0;
+			for( var jj in distance)
+				all += distance[jj];
+				
+			var allbefore = 0;
+			for( var jj in distancebefore)
+				allbefore += distancebefore[jj];
+				
+			console.log('Distance_all:' + distancebefore.length);
+			console.log('Distance_allbefore:' + allbefore);			
+
+			return [allbefore/distancebefore.length, all/distance.length];
+		}
+		
+		
+		var hitOptions = {
+			segments: true,
+			stroke: true,
+			fill: true,
+			tolerance: 12
+		};
+		
+	
+		var mousepoint = new Point();
+		function onMouseMove(event) {
+		
+			var hitResult = project.hitTest(event.point, hitOptions);
+
+			for( var i in project.layers)
+				project.layers[i].selected = false;
+			if (hitResult && hitResult.item)
+				hitResult.item.selected = true;
+				//hitResult.item.fullySelected = true;	
+					
+			mousepoint = event.point;	
+			document.getElementById("canvas").style.cursor = 'default';	
+			if(hitResult)
+			{
+				path = hitResult.item;
+				document.getElementById("canvas").style.cursor = 'pointer';	
+			} 
+
+			console.log('mousemove');
+		}
+		
+		var segment, path;
+		var movePath = false;
+		function onMouseDrag(event) 
+		{
+		
+			var hitResult = project.hitTest(event.point, hitOptions);
+				if (hitResult) 
+				{
+					path = hitResult.item;
+					if (hitResult.type == 'segment') {
+						segment = hitResult.segment;
+						segment.point = event.point;
+						if(tracelog) console.log(path.getPathData());
+						//console.log('Handle!' + segment['handleIn']);
+						movePath = true;
+					} else movePath = false;
+				}
+
+			var delta = event.delta.clone();
+			if (type == 'handleOut' || type == 'handleIn') 
+			{ 	if(type == 'handleOut') {delta = -delta;
+				currentSegment.handleOut -= delta;}
+				currentSegment.handleIn += delta;	
+			}
+				
+			console.log('Type:' + type);
+			console.log('drag!');
+				
+		}
+		
+		var types = ['point','handleIn', 'handleOut'];
+		var handleDistance = 5;
+		function findHandle(point) {
+			for (var i = 0, l = path.segments.length; i < l; i++) {
+				for (var j = 0; j < 3; j++) {
+					var type = types[j];
+					var segment = path.segments[i];
+					var segmentPoint = type == 'point'
+							? segment.point
+							: segment.point + segment[type];
+					var distance = (point - segmentPoint).length;
+					if (distance < handleDistance) {
+						console.log('Type:' + type);
+						return {
+							type: type,
+							segment: segment
+						};
+					}
+				}
+			}
+			return null;
+		}
+		
+		var currentSegment, type;
+		function onMouseDown(event) {
+			var result = findHandle(event.point);
+			if (result) {
+				currentSegment = result.segment;
+				type = result.type;
+			}				
+		}
+
+			
+		var scalefactor = 1;
+		function dPlus() {
+				
+			scalefactor = 1;
+			scalefactor +=.05;
+			for (var i = 0; i < paths.length; i++) {
+				var path = paths[i];
+				if(Boolean(path.scale))
+				path.scale(Math.round(scalefactor*100)/100, mousepoint);
+				
+				console.log('Plus_Scale: ' + Math.round(scalefactor*100)/100)
+				}
+				handleDistance +=scalefactor;
+		}
+			
+		function dMinus() { 
+		
+			console.log('DMinus')
+			scalefactor = 1;
+			scalefactor -=.05;
+				
+			for (var i = 0; i < paths.length; i++) {
+				var path = paths[i];
+				if(Boolean(path.scale)) 
+				path.scale(scalefactor, view.center);
+			}
+				
+		}
+		
+		onWheel.init('canvas', dPlus, dMinus);
+		
+		$('#refresh').click(function(){
+			console.log('OnClick');
+			init();
+		})
+		
+		$('#ready').click(function(){
+			
+			originlay.opacity = 1; getArrayPath();
+			to = getResult(); to += 0.1;
+
+			if(doanim) init(); else 
+			doanim = true;	
+		})
+		
+		
+		
+		var arrStyle = ['#refresh', '#ready'];
+		for( var i in arrStyle) $(arrStyle[i]).hover(function(){
+			$(this).css('cursor','pointer');
+		},  $(this).css('cursor','default'))
+		
+	</script>
+</head>
+<body>
+	<div id="result">42%</div>
+	<div id="mouseinfo"><img src="ui/wheel_p.png" alt=""/></div>
+	<div id="ready"><img src="ui/ready_p.png" alt=""/></div>
+	<div id="refresh"><img src="ui/refresh_p.png" alt=""/></div>
+	<canvas id="canvas" resize></canvas>
+</body>
+</html>
