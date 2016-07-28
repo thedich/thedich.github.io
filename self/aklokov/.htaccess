@@ -1,0 +1,8 @@
+AddDefaultCharset Off
+DirectoryIndex index.html index.php
+
+AddType "text/html; charset=utf-8" .html
+AddType "image/jpeg;" .jpeg .jpg .jpe
+AddType "application/x-shockwave-flash" .swf
+
+
