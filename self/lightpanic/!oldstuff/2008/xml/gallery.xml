@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+	<gallery go="1">
+		<item url_small_jpg ="gallery_pic/TLP-1_small.jpg" url_big_jpg="gallery_pic/TLP-1.jpg" />
+		<item url_small_jpg ="gallery_pic/TLP-2_small.jpg" url_big_jpg="gallery_pic/TLP-2.jpg" />
+		<item url_small_jpg ="gallery_pic/TLP-3_small.jpg" url_big_jpg="gallery_pic/TLP-3.jpg" />
+		<item url_small_jpg ="gallery_pic/TLP-4_small.jpg" url_big_jpg="gallery_pic/TLP-4.jpg" />
+		<item url_small_jpg ="gallery_pic/TLP-5_small.jpg" url_big_jpg="gallery_pic/TLP-5.jpg" />
+		<item url_small_jpg ="gallery_pic/TLP-6_small.jpg" url_big_jpg="gallery_pic/TLP-6.jpg" />
+		<item url_small_jpg ="gallery_pic/TLP-7_small.jpg" url_big_jpg="gallery_pic/TLP-7.jpg" />
+		<item url_small_jpg ="gallery_pic/TLP-8_small.jpg" url_big_jpg="gallery_pic/TLP-8.jpg" />
+		<item url_small_jpg ="gallery_pic/TLP-9_small.jpg" url_big_jpg="gallery_pic/TLP-9.jpg" />
+		<item url_small_jpg ="gallery_pic/TLP-10_small.jpg" url_big_jpg="gallery_pic/TLP-10.jpg" />
+	</gallery>

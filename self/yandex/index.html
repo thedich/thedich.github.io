@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Yandex Logo</title>
+
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="paper.js"></script>
+	<script type="text/javascript" src="utils.js"></script>
+	<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+	
+	<script type="text/paperscript" canvas="canvas">
+		
+		var path;
+		var paths = [];
+		var modifyPaths = [];
+		var originPaths = [];
+		var beforePaths = [];
+		var modifylay, originlay, beforelay;
+		var origincolor = "#bfbfbf";
+		var result = [];
+		
+		var doanim = false;
+		var testmode = false;
+		var pathscount, pointscount, from, to;
+		
+		var vData = {
+			YA: 
+			{
+				original:"M24.2 50.35Q42.75 10.85 80.75 7.05L134.25 7.05 134.25 286 108.25 286 108.25 181.4 88.45 181.4 34.5 285.85 2.15 285.85 61.1 176.8Q49.15 174.15 37.2 161.85 13.25 137.25 13.25 89.05 14.9 70.05 24.2 50.35",
+				compare:"M81.75 30.5 107.8 30.5 107.8 159.35 82.05 159.5Q55.1 152.8 45.95 120.25 43.15 110.05 42.45 98.5L42.25 89Q42.6 56.85 62.25 40.45 72.05 32.3 81.75 30.5",
+				modify:"M24.2 50.35Q42.75 10.85 80.75 7.05L134.25 7.05 134.25 286 108.25 286 108.25 181.4 88.45 181.4 60.5 286 30.5 286 61.1 176.8Q49.15 174.15 37.2 161.85 13.25 137.25 13.25 89.05 14.9 70.05 24.2 50.35",
+				color:"#FF0000"	
+			   //console.log("RAW_DATA:" +  raw.data)
+
+			},
+			N: 
+			{
+				original:"M200.7 100 200.95 174.2 245.95 174.2 245.85 100 272.2 100 272.2 285.85 245.85 285.85 245.6 196.05 201.9 195.75 201.35 285.85 173.2 285.85 173.85 100 200.7 100",
+				modify:"M200.7 100 200 190 246.25 190 245.85 100 272.2 100 272.2 285.85 245.85 285.85 245.7 220 201.75 220 201.35 285.85 173.2 285.85 173.85 100 200.7 100",
+				color:"#000"
+				
+			   //console.log("RAW_DATA:" +  raw.data)
+
+			},
+			D: 
+			{
+				original:"M410.35 100 410.5 262.6 425.6 262.9 425.3 318.95 425.3 320.45 400.55 320.45 400.55 318.95 400.6 285.85 319.85 285.85 319.85 318.95 319.85 320.45 294.15 320.45 294.15 262.9 305.1 262.9Q312 254 318.9 229.2 332.75 179.55 332.95 100L410.35 100",
+				compare:"M358.55 137 358.75 122.15 384.15 122.15 384.15 263.9 328.2 263.9Q348.55 231.4 355.65 173.55 357.9 155.45 358.55 137",
+				modify:"M410.35 100 410.5 262.6 425.6 262.9 425.3 318.95 425.3 320.45 400.55 320.45 400.55 318.95 400.55 310 319.85 310 319.85 318.95 319.85 320.45 294.15 320.45 294.15 262.9 305.1 262.9Q312 254 318.9 229.2 332.75 179.55 332.95 100L410.35 100",
+				color:"#000"
+				
+			   //console.log("RAW_DATA:" +  raw.data)
+
+			},
+			E: 
+			{
+				original:"M507.95 95.45Q517.55 97.5 525.4 105.05 550.4 128.95 547.75 197.65L470.3 197.65 470.25 211.25Q471.2 227.2 476.25 239.05 492.35 277 542.95 259.7L547.1 276.4Q541.3 279.85 532.4 283.05 514.6 289.6 499.1 288.9 449.55 286.65 441.7 213.1 439.1 185 445.1 156.15 457.05 98.4 499.85 94.8L507.95 95.45",
+				compare:"M508.55 123.2Q512.3 127.05 514.15 134.85 516.55 144.65 519.5 175.9L472.5 176.15Q472.95 161 476.25 146.15 482.7 116.4 496.8 118 504.45 118.9 508.55 123.2",
+				modify:"M507.95 95.45Q517.55 97.5 525.4 105.05 550.4 128.95 550 210L470.3 197.65 470.25 211.25Q471.2 227.2 476.25 239.05 492.35 277 542.95 259.7L547.1 276.4Q541.3 279.85 532.4 283.05 514.6 289.6 499.1 288.9 449.55 286.65 441.7 213.1 439.1 185 445.1 156.15 457.05 98.4 499.85 94.8L507.95 95.45",
+				color:"#000"
+				
+			   //console.log("RAW_DATA:" +  raw.data)
+
+			},
+			K: 
+			{
+				original:"M679.35 100 634.8 182.8 635.1 186.05 688.6 285.85 656.85 285.85 610.75 191.9 607.55 191.9 607.1 285.85 578.7 285.85 579.4 100.1 607.15 100.2 607.2 183.55 610.55 183.45 651.85 100 679.35 100",
+				modify:"M679.35 100 634.8 182.8 635.1 186.05 688.6 285.85 630.5 285.5 610.75 191.9 607.55 191.9 607.1 285.85 578.7 285.85 579.4 100.1 607.15 100.2 607.2 183.55 610.55 183.45 651.85 100 679.35 100",
+				color:"#000"
+				
+			   //console.log("RAW_DATA:" +  raw.data)
+
+			},
+			C: 
+			{
+				original:"M696.9 171.2Q701.4 146.95 709.9 129.45 721.85 105.05 740.15 97.65 763 88.4 794.6 106.4L780.8 130.8Q777.55 127.4 772.6 124.05 762.8 117.4 754.25 117.85 726.85 119.4 722.6 191.9L722.85 206.05Q724.15 222.75 729.1 235.35 745.1 275.7 792.3 260.05 L797.35 276.75Q790.95 280.3 781.25 283.35 761.9 289.55 745.75 287.35 723.2 284.25 710.25 264.8 694.15 240.5 694.15 191.9 694.65 183.25 696.9 171.2",
+				modify:"M696.9 171.2Q701.4 146.95 709.9 129.45 721.85 105.05 740.15 97.65 763 88.4 794.6 106.4L780.8 130.8Q777.55 127.4 772.6 124.05 762.8 117.4 754.25 117.85 726.85 119.4 722.6 191.9L722.85 206.05Q724.15 222.75 729.1 235.35 745.1 275.7 792.3 260.05 L797.35 276.75Q790.95 280.3 781.25 283.35 761.9 289.55 745.75 287.35 723.2 284.25 710.25 264.8 694.15 240.5 694.15 191.9 694.65 183.25 696.9 171.2",
+				color:"#000"
+				
+			   //console.log("RAW_DATA:" +  raw.data)
+
+			}
+		}
+		
+		function makePath(dataPath, color, pushto)
+		{
+			var path = new Path(); 
+			path.setPathData(dataPath);
+			path.strokeCap = 'butt';
+			path.strokeJoin = 'round';
+			path.fillColor = color;
+			path.closePath();
+			
+			if(!Boolean(pushto)) paths.push(path);
+			beforePaths.push(path);			
+			return path;
+		}
+		
+		function init()
+		{
+			// ui default
+			$('#result').text(' ');
+			result = []; pathscount = pointscount = from = to = 0;
+			doanim = false;
+			
+			paths = [];
+			project.clear();
+			
+			if(originlay) originlay.remove();
+			if(modifylay) modifylay.remove();
+			if(beforelay) beforelay.remove();
+	
+			originlay = new Layer();
+			originlay = project.activeLayer;
+			originlay.opacity = 0;
+			originlay.locked = true;
+			makeInLayer('original', origincolor);
+			
+			paths.push('stop'); // flag 
+			modifylay = new Layer();
+			project.activeLayer = modifylay;
+			makeInLayer('modify');
+			
+			paths.push('before'); // to calc persents
+			beforelay = new Layer();
+			project.activeLayer = beforelay;
+			beforelay.opacity = 0;
+			beforelay.locked = true;
+			makeInLayer('modify');
+			
+		}
+		
+		init();
+		
+		function makeInLayer(type, color)
+		{
+			for ( var i in vData)
+			{   
+				var thiscolor = vData[i].color;
+				if(Boolean(color))thiscolor = color;
+
+				var path = makePath(vData[i][type],thiscolor);
+				if(Boolean(vData[i].compare))
+				{
+					var pathcom = makePath(vData[i].compare, type)
+					var p = new CompoundPath(pathcom, path);
+					p.fillColor = thiscolor;
+				}
+			}			
+		}
+				
+		function onFrame(event) {
+			alignLayers();
+			if(doanim) calculateDefPoints();
+			
+			if(Boolean(to) && from < to)
+				$('#result').text("" + from + "%"), from++;
+			
+		}
+		
+		function alignLayers()
+		{
+			modifylay.position = view.center;
+			beforelay.position = view.center; 
+			originlay.position.x  = view.center.x - 6; // bug fix
+			originlay.position.y  = view.center.y;
+		}
+		
+		function calculateDefPoints()
+		{
+		
+			console.log('__Animate__');
+			var path1 = modifyPaths[pathscount];
+			var path2 = originPaths[pathscount];
+			
+			//console.log('Origin: ' + path2.getPathData());
+			//console.log('Modify: ' + path1.getPathData());
+			//console.log('all: ' + paths[0].getPathData());
+			
+			if(testmode)
+			{
+				var path = new Path.Circle(path2.segments[pointscount].point, 10);
+				path.fillColor = 'yellow';
+			
+				var path = new Path.Circle(path1.segments[pointscount].point, 5);
+				path.fillColor = 'green';
+			}	
+			
+			if(Boolean(path1.segments[pointscount]))
+			{
+				var point1x = path1.segments[pointscount].point.x;
+				var point1y = path1.segments[pointscount].point.y;
+				var point2x = path2.segments[pointscount].point.x;
+				var point2y = path2.segments[pointscount].point.y;
+				
+				var inc = .5;
+				if(point1x < point2x)
+					path1.segments[pointscount].point.x+=inc;	
+				if(point1x > point2x)
+					path1.segments[pointscount].point.x-=inc;
+					
+				if(point1y < point2y)
+					path1.segments[pointscount].point.y+=inc;	
+				if(point1y > point2y)
+					path1.segments[pointscount].point.y-=inc;	
+					
+				if( Math.abs(point1x - point2x)<1 && 
+				    Math.abs(point1y - point2y)<1)	
+					pointscount++;
+				
+				//console.log('point1x' + point1x);
+				//console.log('point2x' + point2x);
+				
+			} else console.log('next'); //pathscount++;	
+
+			
+			if(!Boolean(path1.segments[pointscount]))
+			{
+				pathscount++;
+				pointscount = 0;
+				console.log('next:' + pathscount);
+			}
+			
+			if(!Boolean(modifyPaths[pathscount]))
+				doanim = false;
+		}
+		
+		function getArrayPath()
+		{
+			var ii, jj;
+			for ( var i in paths)
+			{
+			    if(paths[i] == 'stop') ii = Number(i);
+				if(paths[i] == 'before') jj = Number(i);
+			}
+			
+			console.log('ii: ' + ii);
+			console.log('jj: ' + jj);
+			
+			originPaths = paths.slice(0, ii);
+			modifyPaths = paths.slice(ii+1, jj);
+			beforePaths = paths.slice(jj+1, paths.length);
+				
+			console.log('modifyPaths_len:' + modifyPaths.length);
+			console.log('originPaths_len:' + originPaths.length);
+			console.log('beforePaths_len:' + beforePaths.length);
+			console.log('Paths_len:' + paths.length);
+
+			result = getMiddle();	
+		}
+		
+		function getResult()
+		{
+			var res = 100 - Math.round(result[1]*100/result[0]);
+			console.log('result_original:' + result[0]);
+			console.log('result_aftermove:' + result[1]);
+			console.log('result:' + res);
+			
+			if(res <0) res = 0;
+			console.log('result:' + res);
+			
+			return res;
+		}
+		
+		function getMiddle()
+		{
+			var distance = [];
+			var distancebefore = [];
+			
+			for( var d in modifyPaths)
+			{
+				var path1 = modifyPaths[d];
+				var path2 = originPaths[d];
+				var pathbefore = beforePaths[d];
+				
+				
+				for( var j in path1.segments)
+				{
+					var seg1 = path1.segments[j].point;
+					var seg2 = path2.segments[j].point;
+					var segbef = pathbefore.segments[j].point;
+					
+					var dis = seg2.getDistance(seg1);
+					var disbefore = seg2.getDistance(segbef);
+					
+					if(dis > 2) distance.push(dis);
+					if(disbefore > 2) distancebefore.push(disbefore);
+					//console.log('Distance:' + dis);
+					
+				}
+			}
+			
+			var all = 0;
+			for( var jj in distance)
+				all += distance[jj];
+				
+			var allbefore = 0;
+			for( var jj in distancebefore)
+				allbefore += distancebefore[jj];
+				
+			console.log('Distance_all:' + distancebefore.length);
+			console.log('Distance_allbefore:' + allbefore);			
+
+			return [allbefore/distancebefore.length, all/distance.length];
+		}
+		
+		
+		var hitOptions = {
+			segments: true,
+			stroke: true,
+			fill: true,
+			tolerance: 12
+		};
+		
+	
+		var mousepoint = new Point();
+		function onMouseMove(event) {
+		
+			var hitResult = project.hitTest(event.point, hitOptions);
+
+			for( var i in project.layers)
+				project.layers[i].selected = false;
+			if (hitResult && hitResult.item)
+				hitResult.item.selected = true;
+				//hitResult.item.fullySelected = true;	
+					
+			mousepoint = event.point;	
+			document.getElementById("canvas").style.cursor = 'default';	
+			if(hitResult)
+			{
+				path = hitResult.item;
+				document.getElementById("canvas").style.cursor = 'pointer';	
+			} 
+
+			console.log('mousemove');
+		}
+		
+		var segment, path;
+		var movePath = false;
+		function onMouseDrag(event) 
+		{
+		
+			var hitResult = project.hitTest(event.point, hitOptions);
+				if (hitResult) 
+				{
+					path = hitResult.item;
+					if (hitResult.type == 'segment') {
+						segment = hitResult.segment;
+						segment.point = event.point;
+						
+						console.log('Handle!' + segment['handleIn']);
+						movePath = true;
+					} else movePath = false;
+				}
+
+			var delta = event.delta.clone();
+			if (type == 'handleOut' || type == 'handleIn') 
+			{ 	if(type == 'handleOut') {delta = -delta;
+				currentSegment.handleOut -= delta;}
+				currentSegment.handleIn += delta;	
+			}
+				
+			console.log('Type:' + type);
+			console.log('drag!');
+				
+		}
+		
+		var types = ['point','handleIn', 'handleOut'];
+		var handleDistance = 5;
+		function findHandle(point) {
+			for (var i = 0, l = path.segments.length; i < l; i++) {
+				for (var j = 0; j < 3; j++) {
+					var type = types[j];
+					var segment = path.segments[i];
+					var segmentPoint = type == 'point'
+							? segment.point
+							: segment.point + segment[type];
+					var distance = (point - segmentPoint).length;
+					if (distance < handleDistance) {
+						console.log('Type:' + type);
+						return {
+							type: type,
+							segment: segment
+						};
+					}
+				}
+			}
+			return null;
+		}
+		
+		var currentSegment, type;
+		function onMouseDown(event) {
+			var result = findHandle(event.point);
+			if (result) {
+				currentSegment = result.segment;
+				type = result.type;
+			}				
+		}
+
+			
+		var scalefactor = 1;
+		function dPlus() {
+				
+			scalefactor = 1;
+			scalefactor +=.05;
+			for (var i = 0; i < paths.length; i++) {
+				var path = paths[i];
+				if(Boolean(path.scale))
+				path.scale(Math.round(scalefactor*100)/100, mousepoint);
+				
+				console.log('Plus_Scale: ' + Math.round(scalefactor*100)/100)
+				}
+				handleDistance +=scalefactor;
+		}
+			
+		function dMinus() { 
+		
+			console.log('DMinus')
+			scalefactor = 1;
+			scalefactor -=.05;
+				
+			for (var i = 0; i < paths.length; i++) {
+				var path = paths[i];
+				if(Boolean(path.scale)) 
+				path.scale(scalefactor, view.center);
+			}
+				
+		}
+		
+		onWheel.init('canvas', dPlus, dMinus);
+		
+		$('#refresh').click(function(){
+			console.log('OnClick');
+			init();
+		})
+		
+		$('#ready').click(function(){
+			
+			originlay.opacity = 1; getArrayPath();
+			to = getResult(); to += 0.1;
+
+			if(doanim) init(); else 
+			doanim = true;	
+		})
+		
+		
+		
+		var arrStyle = ['#refresh', '#ready'];
+		for( var i in arrStyle) $(arrStyle[i]).hover(function(){
+			$(this).css('cursor','pointer');
+		},  $(this).css('cursor','default'))
+		
+	</script>
+</head>
+<body>
+	<div id="result">42%</div>
+	<div id="mouseinfo"><img src="ui/wheel_p.png" alt=""/></div>
+	<div id="ready"><img src="ui/ready_p.png" alt=""/></div>
+	<div id="refresh"><img src="ui/refresh_p.png" alt=""/></div>
+	<canvas id="canvas" resize></canvas>
+</body>
+</html>

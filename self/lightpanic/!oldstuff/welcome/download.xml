@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+	<player>	
+		<song path="zip/Hey you.rar" title="Hey you" time ="2:52" />
+		<song path="zip/American Boys.rar" title="American boys" time ="2:58"  />
+		<song path="zip/Plastic Panic.rar" title="Plastic Panic" time ="3:13" />
+		<song path="zip/Instant.rar" title="Instant" time ="3:12"/>
+		<song path="zip/I . F . L . A ..rar" title="I . F . L . A ." time ="4:48" />
+		<song path="zip/Give me.rar" title="Give me" time ="3:20" />
+		<song path="zip/War with.rar" title="War with..." time ="1:53" />
+		<song path="zip/Air.rar" title="Air" time ="3:35" />
+	</player>

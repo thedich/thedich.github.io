@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Graphic version="2.0" viewHeight="600" viewWidth="800" ATE:version="1.0.0" flm:version="1.0.0" d:using="" pd:backgroundColor="2883829" xmlns="http://ns.adobe.com/fxg/2008" xmlns:ATE="http://ns.adobe.com/ate/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:flm="http://ns.adobe.com/flame/2008" xmlns:pd="http://ns.adobe.com/xfl/2008/pd">
+  <Library/>
+  <Group d:type="layer" d:userLabel="Selected Items">
+    <Path data="M329.15 279.7Q331.3 284.85 331.3 295.95L331.3 346.2 310.45 346.2 310.45 301.25Q310.45 289.4 308.2 286.25 305.45 281.65 299.4 281.65 294.85 281.65 291.2 284.4 287.1 287.3 285.55 292.15 283.9 297 283.9 308.4L283.9 346.2 263.1 346.2 263.1 303.1
+Q263.1 291.7 261.85 288.35 260.65 284.85 258.35 283.35 255.95 281.65 252.15 281.65 247.45 281.65 243.5 284.25 239.7 287 237.85 291.85 236.2 296.85 236.2 308.1L236.2 346.2 215.4 346.2 215.4 267.55 234.55 267.55 234.55 278.35Q245 265.7 259.15
+ 265.7 266.75 265.7 272.35 268.9 277.8 271.8 281.45 278.35 286.45 271.95 292.55 268.9 298.75 265.7 305.45 265.7 313.95 265.7 320.05 269.2 326.25 272.85 329.15 279.7">
+      <fill>
+        <SolidColor color="#FFFFFF"/>
+      </fill>
+    </Path>
+  </Group>
+  <Private/>
+</Graphic>
