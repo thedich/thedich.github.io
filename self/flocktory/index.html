@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script type="text/javascript" src="js/statsflock.js"></script>
+</head>
+
+<script>
+
+    var querys = ["query=gap&query=bugs&query=mass&query=java&query=time&query=colors",
+                  "query=gap&query=bugs&query=mass",
+                  "query=bugs",
+                  "query=gap&query=bugs&query=mass&query=java&query=time&query=colors",
+                  "query=java",
+                  "query=gap&query=bugs&query=mass",
+                  "query=mass",
+                  "query=uglify"
+                ];
+
+    _search("query=gap");
+
+    var loop = setInterval(function(){
+       var q = querys.shift();
+       if( q ) _search(q);
+       else { clearInterval(loop); _search.getStats()};
+    },1000);
+
+</script>
+
+<body>
+</body>
+</html>
