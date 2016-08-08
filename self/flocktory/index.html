@@ -6,22 +6,21 @@
 
 <script>
 
-    var querys = ["query=gap&query=bugs&query=mass&query=java&query=time&query=colors",
+    var querys = ["query=gap&query=bugs&query=mass&query=actionscript&query=time&query=colors",
                   "query=gap&query=bugs&query=mass",
                   "query=bugs",
-                  "query=gap&query=bugs&query=mass&query=java&query=time&query=colors",
-                  "query=java",
+                  "query=gap&query=bugs&query=mass&query=actionscript&query=time&query=colors",
+                  "query=actionscript",
                   "query=gap&query=bugs&query=mass",
                   "query=mass",
                   "query=uglify"
                 ];
 
-    _search("query=gap");
-
+	_search.domain = "http://thedich.github.io/";
     var loop = setInterval(function(){
        var q = querys.shift();
-       if( q ) _search(q);
-       else { clearInterval(loop); _search.getStats()};
+       if( q ) { console.log("__QUERY__:" + q); _search(q);}
+       else    { console.log("__STATS__:" +_search.getStats()); clearInterval(loop); };
     },1000);
 
 </script>
