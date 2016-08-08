@@ -16,12 +16,11 @@
                   "query=uglify"
                 ];
 
-    _search("query=gap");
-
     var loop = setInterval(function(){
        var q = querys.shift();
+       console.log("__QUERY__:" + q);
        if( q ) _search(q);
-       else { clearInterval(loop); _search.getStats()};
+       else { console.log("_STATS_:" +_search.getStats()); clearInterval(loop); };
     },1000);
 
 </script>
