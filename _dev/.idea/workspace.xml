@@ -278,15 +278,39 @@
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="8fe16164-4289-4335-bb38-fe6022e2a559" name="Default" comment="" />
       <created>1470664086819</created>
       <updated>1470664086819</updated>
       <workItem from="1470664087406" duration="661000" />
+=======
+      <changelist id="b27e77e1-b049-4345-9c42-f6175097c76f" name="Default" comment="" />
+      <created>1469627995339</created>
+      <updated>1469627995339</updated>
+      <workItem from="1469627998932" duration="10516000" />
+      <workItem from="1469695649618" duration="7813000" />
+      <workItem from="1469705266460" duration="95000" />
+      <workItem from="1469705437385" duration="684000" />
+<<<<<<< HEAD
+      <workItem from="1469784456171" duration="818000" />
+      <workItem from="1469794879336" duration="406000" />
+      <workItem from="1469806038284" duration="1012000" />
+=======
+>>>>>>> a5dcb2e668f58577bc81b34d7dbc05d89c45af74
+>>>>>>> 0ad69606fd85c6770195a99f0ba9654a80eae676
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="661000" />
+=======
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="21344000" />
+=======
+    <option name="totallyTimeSpent" value="19108000" />
+>>>>>>> a5dcb2e668f58577bc81b34d7dbc05d89c45af74
+>>>>>>> 0ad69606fd85c6770195a99f0ba9654a80eae676
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
@@ -312,7 +336,16 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24973376" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+<<<<<<< HEAD
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+=======
+<<<<<<< HEAD
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32901832" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+>>>>>>> a5dcb2e668f58577bc81b34d7dbc05d89c45af74
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+>>>>>>> 0ad69606fd85c6770195a99f0ba9654a80eae676
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
