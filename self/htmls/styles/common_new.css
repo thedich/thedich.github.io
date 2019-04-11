@@ -1,0 +1,530 @@
+@font-face {
+    font-family: 'FuturaPTBook';
+    src: url('../fonts/FuturaPTBook-Reg.eot?#iefix') format('embedded-opentype'),   url('../fonts/FuturaPTBook-Reg.otf') format('opentype'), url('../fonts/FuturaPTBook-Reg.woff') format('woff'), url('../fonts/FuturaPTBook-Reg.ttf') format('truetype'), url('../fonts/FuturaPTBook-Reg.svg#FuturaPTBook-Reg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FuturaPTLight';
+    src: url('../fonts/FuturaPTLight-Reg.eot?#iefix') format('embedded-opentype'), url('../fonts/FuturaPTLight-Reg.otf') format('opentype'),
+    url('../fonts/FuturaPTLight-Reg.woff') format('woff'), url('../fonts/FuturaPTLight-Reg.ttf') format('truetype'), url('../fonts/FuturaPTLight-Reg.svg#FuturaPTLight-Reg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FuturaPTDemi';
+    src: url('../fonts/FuturaPTDemi-Reg.eot?#iefix') format('embedded-opentype'), url('../fonts/FuturaPTDemi-Reg.otf') format('opentype'), url('../fonts/FuturaPTDemi-Reg.woff') format('woff'), url('../fonts/FuturaPTDemi-Reg.ttf') format('truetype'), url('../fonts/FuturaPTDemi-Reg.svg#FuturaPTDemi-Reg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue";
+
+    font-size: 12px;
+    color: black;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    line-height: 1.3;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+
+div.main {
+    width: 520px;
+    margin: 8px auto 0 auto;
+    padding: 40px;
+}
+
+.logo_container {
+    display: block;
+    padding: 12px 21px;
+}
+
+.logo {
+    display: inline-block;
+    vertical-align: middle;
+    height: 41px;
+    width: auto;
+}
+
+.vendor_logo
+{
+    float: right;
+}
+
+.raif_logo {
+    display: inline;
+}
+
+.raif_logo_text {
+    font-size: 16px;
+    display: inline-block;
+    border-left: 1px solid #000;
+    padding-left: 18px;
+    margin-left: 18px;
+    height: 41px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.raif_logo_img {
+    width: 187px;
+    height: 41px;
+    vertical-align: middle;
+}
+
+.form_block {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.label {
+    display: block;
+    width: 162px;
+    margin: 0 10px 7px 0;
+    text-align: left;
+    float: left;
+    font-size: 18px;
+    color: #aaabad;
+}
+
+.value {
+    text-align: left;
+    font-size: 18px;
+    color: #1d1d1d;
+    height: 36px;
+}
+
+divs.value input {
+}
+
+.btn {
+    height: 34px;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.prompt {
+    font-size: 14px;
+    color: #666;
+    margin: 30px 18px 30px 18px;
+}
+
+.error_header {}
+
+div.hidden_prompt {
+    display: none;
+}
+
+a:hover + div.hidden_prompt {
+    display: block;
+    position: absolute;
+    left: 200px;
+    border: 1px solid #666;
+}
+
+div.input_error {
+    color: red;
+    font-size: 10px;
+    float: right
+}
+
+.clear {
+    clear: both;
+}
+
+.list {
+    margin: 0 18px 0 18px;
+}
+
+.grey {
+    color: #8b8b8b;
+    font-size: 24px;
+    margin: 8px 0 8px 0;
+}
+
+.sum {
+    float: left;
+    color: #1f1e1e;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 20px 0 20px 0;
+    width: 200px;
+    background-color: white;
+}
+
+.text {
+    color: #939393;
+    font-size: 14px;
+    margin-bottom: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.text span {
+    color: #191818;
+}
+
+.message {
+    min-height: 49px;
+}
+
+.gray_block {
+    padding: 10px 0 15px 0;
+    text-align: center;
+}
+
+.info {
+    color: #d7d8d8;
+    font-size: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 50px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.gray_block a {
+    font-size: 14px;
+    color: #5c5c5c;
+    text-decoration: underline;
+    float: left;
+}
+
+.gray_block a:hover {
+    text-decoration: none;
+}
+
+.resend_send
+{
+    padding: 15px 40px 0 40px;
+    text-align: center;
+}
+
+.cancel_pay
+{
+    max-width: 500px;
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+a.resend_link {
+    font-size: 16px;
+    color: #aaabad;
+}
+
+a.exit_link {
+    font-size: 16px;
+    color: #aaabad;
+}
+
+.in_sms {
+    width: 48%;
+    height: 55px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 24px;
+    padding: 12px 10px 12px 10px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.line_in_sms {
+    position: relative;
+    height: 2px;
+    top: -10px;
+}
+
+.line{
+    width: 150px;
+    background-color: black;
+    height: 2px;
+    margin: 0 auto;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #aaabad;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: #aaabad;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: #aaabad;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #aaabad;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+    -moz-appearance: none;
+    border: 0px;
+}
+
+input[type="number"]:focus {
+    -moz-appearance: none;
+    outline: none;
+    border: 0px;
+}
+
+/*
+input[type="number"]:hover,
+input[type="number"]:focus {
+    -moz-appearance: number-input;
+}
+*/
+
+.yellow_btn {
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    height: 43px;
+    width: 48%;
+    min-width: 188px;
+    padding: 0 70px 0 50px;
+    overflow: hidden;
+    background: url(../images/button.png) no-repeat -400px 0 #ffcc09;
+    font-size: 22px;
+    color: #000;
+    border: 0 none;
+    white-space: nowrap;
+    -moz-transition: background 1s linear;
+    -webkit-transition: background 1s linear;
+    transition: background 1s linear;
+    margin-bottom: 20px;
+}
+
+.yellow_btn:hover {
+    color: #000 !important;
+    background-position: 0 0;
+    border-color: rgba(210, 50, 50, 0.3) !important;
+}
+
+.white_btn {
+    display: inline-block;
+    vertical-align: top;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    height: 43px;
+    width: 48%;
+    padding: 0 38px;
+    overflow: hidden;
+    background: #fff;
+    font-size: 22px;
+    color: #000;
+    border: 2px solid #ffcc09;
+    white-space: nowrap;
+    -moz-transition: background 1s linear;
+    -webkit-transition: background 1s linear;
+    transition: background 1s linear;
+}
+
+.white_btn:hover {
+    color: #000 !important;
+    background: #fff1bc;
+    border: 2px solid #ffcc09 !important;
+}
+
+.btn_accept {
+    float: right;
+}
+
+.btn_canc {
+    margin: 20px auto;
+    display: block;
+}
+
+.accept,
+.error {
+    font-size: 14px;
+    padding: 12px 0;
+}
+
+.accept {
+    color: #01a220;
+    background-color: #d9fde2;
+}
+
+.qcash {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #666;
+}
+
+.textqcash {
+    margin-left: 8px;
+    margin-right: 8px;
+    display: block;
+}
+
+.block__item {
+    border-radius: 7px;
+    background-color: rgb(255, 241, 176) !important;
+}
+
+.error {
+    color: #e51212;
+    background-color: #fdd9db;
+    padding-top: 5px;
+}
+
+.text2 {
+    color: #303030;
+    font-size: 17px;
+}
+
+.phone {
+    text-align: left;
+    font-size: 24px;
+    color: #303030;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+.phone span::before {
+    display: block;
+    content: '';
+    float: left;
+    margin-right: 20px;
+    width: 22px;
+    height: 22px;
+    background-image: url(../images/phone.png);
+    position: relative;
+    top: 4px;
+}
+
+@media only screen and (max-width: 620px) {
+    div.main {
+        width: 100%;
+        margin: 8px auto 0 auto;
+        padding: 8px 0;
+    }
+
+    .logo_container {
+        display: block;
+        padding: 0 18px 0 18px;
+    }
+
+    .logo {
+        height: 27px;
+        width: auto;
+    }
+
+    .raif_logo_text {
+        display: none;
+    }
+
+    .form_block {
+        margin-top: 12px;
+    }
+
+    .grey {
+        font-size: 18px;
+        margin: 8px 0 3px 0;
+    }
+
+    .sum {
+        font-size: 20px;
+    }
+
+    .qcash {
+        font-size: 12px;
+    }
+
+    .textqcash {
+        margin-left: 8px;
+        margin-right: 8px;
+        display: block;
+    }
+
+    .block__item {
+        border-radius: 7px;
+        background-color: rgb(255, 241, 176) !important;
+    }
+
+    .label {
+        width: 110px;
+        font-weight: 600;
+        margin: 0 10px 7px 0;
+        font-size: 16px;
+    }
+
+    .value {
+        font-size: 16px;
+    }
+
+    .text {
+        font-size: 13px;
+        margin: 10px auto 10px auto;
+        padding: 0 20px 0 20px;
+    }
+
+    .in_sms {
+        width: 100%;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .white_btn, .btn_yellow {
+        width: 96%;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .yellow_btn {
+        width: 100%;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .btn_accept {
+        float: left;
+    }
+
+    .info {
+        font-size: 10px;
+    }
+}
+
+.line-enter-init
+{
+    animation: slideIn .35s forwards
+}
+
+@keyframes slideIn
+{
+    from
+    {
+        width: 0px
+    }
+
+    to
+    {
+        width: 150px
+    }
+}
+
+

