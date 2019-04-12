@@ -16,6 +16,7 @@ function listenSMSInput () {
     var cancel = document.getElementsByClassName( 'cancel_pay' )[0];
     var info = document.getElementsByClassName( 'info' )[0];
 
+    info.style.display = 'none';
     inpt.addEventListener("focus", function (e) {
         inpt.placeholder = "";
         cancel.style.display = 'none';
@@ -25,7 +26,7 @@ function listenSMSInput () {
     inpt.addEventListener("blur", function (e) {
         inpt.placeholder = "Код из SMS";
         cancel.style.display = 'block';
-        info.style.display = 'block';
+        info.style.display = 'none';
     });
 }
 
