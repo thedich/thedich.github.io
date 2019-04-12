@@ -164,9 +164,9 @@ div.input_error {
 .text {
     color: #939393;
     font-size: 14px;
-    margin-bottom: 15px;
     max-width: 400px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .text span {
@@ -233,7 +233,7 @@ a.exit_link {
     height: 55px;
     display: inline-block;
     vertical-align: middle;
-    font-size: 24px;
+    font-size: 22px;
     padding: 12px 10px 12px 10px;
     border-radius: 3px;
     text-align: center;
@@ -511,14 +511,15 @@ input[type="number"]:focus {
 
 .line-enter-init
 {
-    animation: slideIn .35s forwards
+    width: 0;
+    animation: slideIn .35s .35s forwards
 }
 
 @keyframes slideIn
 {
     from
     {
-        width: 0px
+        width: 0
     }
 
     to

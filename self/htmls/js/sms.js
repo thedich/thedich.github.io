@@ -1,6 +1,7 @@
 document.addEventListener( "DOMContentLoaded", listenSMSInput );
 
 function listenSMSInput () {
+
     var sms = document.getElementById( 'password' );
     sms.addEventListener( 'keyup', function ( ev ) {
         var len = this.value.toString().length;
@@ -10,6 +11,22 @@ function listenSMSInput () {
     } );
 
     tickToResentSMS();
+
+    var inpt = document.getElementById( 'password' );
+    var cancel = document.getElementsByClassName( 'cancel_pay' )[0];
+    var info = document.getElementsByClassName( 'info' )[0];
+
+    inpt.addEventListener("focus", function (e) {
+        inpt.placeholder = "";
+        cancel.style.display = 'none';
+        info.style.display = 'none';
+    });
+
+    inpt.addEventListener("blur", function (e) {
+        inpt.placeholder = "Код из SMS";
+        cancel.style.display = 'block';
+        info.style.display = 'block';
+    });
 }
 
 function submitSms () {
@@ -34,7 +51,7 @@ function tickToResentSMS ( seconds ) {
     }
 
     var sec = seconds || 15;
-    var text = "Повторно код можно будет отправить через " + sec + " сек.";
+    var text = "Повторно код можно будет отправить<br>через " + sec + " сек.";
 
     relink.style.display = "none";
     retext.style.display = "block";

