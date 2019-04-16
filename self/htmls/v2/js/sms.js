@@ -27,7 +27,7 @@ function listenSMSInput () {
         inpt.placeholder = "";
         info.style.display = 'none';
 
-        line.style.height = "2px";
+        // line.style.height = "2px";
         line.style.backgroundColor = "#2B2D33";
 
         line.classList.remove("line-enter-init");
@@ -41,7 +41,7 @@ function listenSMSInput () {
         inpt.placeholder = "Введите код";
         info.style.display = 'none';
 
-        line.style.height = "1px";
+        // line.style.height = "1px";
         line.style.backgroundColor = "#aaabad";
     });
 }
