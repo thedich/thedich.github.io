@@ -1,0 +1,74 @@
+body {
+    font-family: arial;
+    font-size: 12px;
+    color: black;
+    margin: 0px;
+}
+div.label {
+    display: block;
+    width: 150px;
+    margin: 0 10px 7px 0;
+    text-align: right;
+    float: left;
+}
+div.value {
+    text-align: left;
+    margin: 0 0 7px 0;
+}
+
+div.value input {
+    width: 150px;
+}
+
+.btn {
+	height: 34px;
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.qcash {
+	    font-size: 12px;	
+}
+
+.textqcash{
+	    margin-left: 6px;
+	    margin-right: 6px;
+	    display: block;
+}
+
+.block__item{
+	    border-radius: 5px;
+	    background-color: rgba(255 241 176);
+}
+	
+.prompt {
+    font-size: 10px;
+    color: #666666;
+}
+.grey {
+    color: #666666;
+}
+div.hidden_prompt {
+    display: none;
+}
+
+a:hover + div.hidden_prompt {
+    display: block;
+    position:absolute;
+    left: 200px;
+    border: 1px solid #666666;
+}
+
+div.input_error {
+    color: red;
+    font-size: 10px;
+    float: right
+}
+
+.header {
+    margin-top: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
