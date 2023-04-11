@@ -1,0 +1,57 @@
+
+/////////////////////////////
+// function memoisation (useCallBack)
+let operation = {
+  method() {
+    return 1;
+  },
+
+  long(x) {
+    console.log("Called with " + x);
+    return x * operation.method();
+  }
+};
+
+function caching(func) {
+    let cache = func;
+    return (...args) => {
+      return cache.apply(this, args);
+      
+    }
+}
+
+operation.long(5);
+operation.long = caching(operation.long);
+operation.long(5);
+operation.long(6);
+
+/////////////////////////
+// value memoisation (useMemo)
+let operation = {
+  method() {
+    return 5;
+  },
+
+  long(x) {
+    console.log("Called with " + x);
+    return x * operation.method();
+  }
+};
+
+function caching(func) {
+    let memo = {};
+    return (arg) => {
+      if(arg in memo) return memo[arg];
+   
+      memo[arg] = func.apply(this, [arg]);
+      return memo[arg]
+      
+    }
+}
+
+
+operation.long = caching(operation.long);
+operation.long(5);
+operation.long(5);
+operation.long(6);
+
